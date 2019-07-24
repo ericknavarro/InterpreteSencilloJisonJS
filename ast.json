@@ -1,0 +1,281 @@
+[
+  {
+    "tipo": "INSTR_IMPRIMIR",
+    "expresionCadena": {
+      "operandoIzq": {
+        "tipo": "VAL_CADENA",
+        "valor": "Tablas de"
+      },
+      "operandoDer": {
+        "tipo": "VAL_CADENA",
+        "valor": " multiplicar"
+      },
+      "tipo": "OP_CONCATENACION"
+    }
+  },
+  {
+    "tipo": "INSTR_DECLARACION",
+    "identificador": "a"
+  },
+  {
+    "tipo": "INSTR_ASIGANCION",
+    "identificador": "a",
+    "expresionNumerica": {
+      "tipo": "VAL_NUMERO",
+      "valor": 0
+    }
+  },
+  {
+    "tipo": "INSTR_DECLARACION",
+    "identificador": "c"
+  },
+  {
+    "tipo": "INSTR_ASIGANCION",
+    "identificador": "c",
+    "expresionNumerica": {
+      "tipo": "VAL_NUMERO",
+      "valor": 1
+    }
+  },
+  {
+    "tipo": "INSTR_IMPRIMIR",
+    "expresionCadena": {
+      "tipo": "VAL_CADENA",
+      "valor": "----------------"
+    }
+  },
+  {
+    "tipo": "INSTR_MIENTRAS",
+    "expresionLogica": {
+      "operandoIzq": {
+        "tipo": "VAL_IDENTIFICADOR",
+        "valor": "a"
+      },
+      "operandoDer": {
+        "operandoIzq": {
+          "tipo": "VAL_NUMERO",
+          "valor": 4
+        },
+        "operandoDer": {
+          "tipo": "VAL_IDENTIFICADOR",
+          "valor": "c"
+        },
+        "tipo": "OP_SUMA"
+      },
+      "tipo": "OP_MENOR_QUE"
+    },
+    "instrucciones": [
+      {
+        "tipo": "INSTR_ASIGANCION",
+        "identificador": "a",
+        "expresionNumerica": {
+          "operandoIzq": {
+            "tipo": "VAL_IDENTIFICADOR",
+            "valor": "a"
+          },
+          "operandoDer": {
+            "tipo": "VAL_NUMERO",
+            "valor": 1
+          },
+          "tipo": "OP_SUMA"
+        }
+      },
+      {
+        "tipo": "INSTR_DECLARACION",
+        "identificador": "b"
+      },
+      {
+        "tipo": "INSTR_ASIGANCION",
+        "identificador": "b",
+        "expresionNumerica": {
+          "tipo": "VAL_NUMERO",
+          "valor": 0
+        }
+      },
+      {
+        "tipo": "INSTR_MIENTRAS",
+        "expresionLogica": {
+          "operandoIzq": {
+            "tipo": "VAL_IDENTIFICADOR",
+            "valor": "b"
+          },
+          "operandoDer": {
+            "operandoIzq": {
+              "tipo": "VAL_NUMERO",
+              "valor": 4
+            },
+            "operandoDer": {
+              "tipo": "VAL_IDENTIFICADOR",
+              "valor": "c"
+            },
+            "tipo": "OP_SUMA"
+          },
+          "tipo": "OP_MENOR_QUE"
+        },
+        "instrucciones": [
+          {
+            "tipo": "INSTR_ASIGANCION",
+            "identificador": "b",
+            "expresionNumerica": {
+              "operandoIzq": {
+                "tipo": "VAL_IDENTIFICADOR",
+                "valor": "b"
+              },
+              "operandoDer": {
+                "tipo": "VAL_NUMERO",
+                "valor": 1
+              },
+              "tipo": "OP_SUMA"
+            }
+          },
+          {
+            "tipo": "INSTR_IMPRIMIR",
+            "expresionCadena": {
+              "operandoIzq": {
+                "operandoIzq": {
+                  "operandoIzq": {
+                    "operandoIzq": {
+                      "tipo": "VAL_IDENTIFICADOR",
+                      "valor": "a"
+                    },
+                    "operandoDer": {
+                      "tipo": "VAL_CADENA",
+                      "valor": " * "
+                    },
+                    "tipo": "OP_CONCATENACION"
+                  },
+                  "operandoDer": {
+                    "tipo": "VAL_IDENTIFICADOR",
+                    "valor": "b"
+                  },
+                  "tipo": "OP_CONCATENACION"
+                },
+                "operandoDer": {
+                  "tipo": "VAL_CADENA",
+                  "valor": " = "
+                },
+                "tipo": "OP_CONCATENACION"
+              },
+              "operandoDer": {
+                "operandoIzq": {
+                  "tipo": "VAL_IDENTIFICADOR",
+                  "valor": "a"
+                },
+                "operandoDer": {
+                  "tipo": "VAL_IDENTIFICADOR",
+                  "valor": "b"
+                },
+                "tipo": "OP_MULTIPLICACION"
+              },
+              "tipo": "OP_CONCATENACION"
+            }
+          }
+        ]
+      },
+      {
+        "tipo": "INSTR_IMPRIMIR",
+        "expresionCadena": {
+          "tipo": "VAL_CADENA",
+          "valor": "----------------"
+        }
+      }
+    ]
+  },
+  {
+    "tipo": "INSTR_ASIGANCION",
+    "identificador": "a",
+    "expresionNumerica": {
+      "tipo": "VAL_NUMERO",
+      "valor": 11
+    }
+  },
+  {
+    "tipo": "INSTR_DECLARACION",
+    "identificador": "b"
+  },
+  {
+    "tipo": "INSTR_ASIGANCION",
+    "identificador": "b",
+    "expresionNumerica": {
+      "tipo": "VAL_NUMERO",
+      "valor": 12
+    }
+  },
+  {
+    "tipo": "INSTR_ASIGANCION",
+    "identificador": "c",
+    "expresionNumerica": {
+      "tipo": "VAL_NUMERO",
+      "valor": 13
+    }
+  },
+  {
+    "tipo": "INSTR_IF",
+    "expresionLogica": {
+      "operandoIzq": {
+        "tipo": "VAL_IDENTIFICADOR",
+        "valor": "a"
+      },
+      "operandoDer": {
+        "tipo": "VAL_NUMERO",
+        "valor": 10
+      },
+      "tipo": "OP_MAYOR_QUE"
+    },
+    "instrucciones": [
+      {
+        "tipo": "INSTR_IMPRIMIR",
+        "expresionCadena": {
+          "tipo": "VAL_CADENA",
+          "valor": "a es mayor que 10."
+        }
+      },
+      {
+        "tipo": "INSTR_IF",
+        "expresionLogica": {
+          "operandoIzq": {
+            "tipo": "VAL_IDENTIFICADOR",
+            "valor": "b"
+          },
+          "operandoDer": {
+            "tipo": "VAL_NUMERO",
+            "valor": 11
+          },
+          "tipo": "OP_MAYOR_QUE"
+        },
+        "instrucciones": [
+          {
+            "tipo": "INSTR_IMPRIMIR",
+            "expresionCadena": {
+              "tipo": "VAL_CADENA",
+              "valor": "a es mayor que 10 y b es mayor que 11."
+            }
+          },
+          {
+            "tipo": "INSTR_IF",
+            "expresionLogica": {
+              "operandoIzq": {
+                "tipo": "VAL_IDENTIFICADOR",
+                "valor": "c"
+              },
+              "operandoDer": {
+                "tipo": "VAL_NUMERO",
+                "valor": 12
+              },
+              "tipo": "OP_MAYOR_QUE"
+            },
+            "instrucciones": [
+              {
+                "tipo": "INSTR_IMPRIMIR",
+                "expresionCadena": {
+                  "tipo": "VAL_CADENA",
+                  "valor": "a es mayor que 10, b es mayor que 11 y c es mayor que 12."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
