@@ -52,7 +52,11 @@ function procesarBloque(instrucciones, tablaDeSimbolos) {
         } else if (instruccion.tipo === TIPO_INSTRUCCION.ASIGNACION) {
             // Procesando Instrucción Asignación
             procesarAsignacion(instruccion, tablaDeSimbolos);
-        } else if (instruccion.tipo === TIPO_INSTRUCCION.IF) {
+        } else if (instruccion.tipo === TIPO_INSTRUCCION.ASIGNACIONVAL) {// SE AGREGO ESTO PARA PROCESAR EL numero=87;
+            // Procesando Instrucción Asignación
+            procesarAsignacionConVal(instruccion, tablaDeSimbolos);
+        }
+        else if (instruccion.tipo === TIPO_INSTRUCCION.IF) {
             // Procesando Instrucción If
             procesarIf(instruccion, tablaDeSimbolos);
         } else if (instruccion.tipo === TIPO_INSTRUCCION.IF_ELSE) {
@@ -180,6 +184,21 @@ function procesarAsignacion(instruccion, tablaDeSimbolos) {
     const valor = procesarExpresionNumerica(instruccion.expresionNumerica, tablaDeSimbolos)
     tablaDeSimbolos.actualizar(instruccion.identificador, valor);
 }
+
+
+
+/**
+	 * SE ESTA AGREGANDO UN OBJETO QUE ACEPTE Ej: nuemro=87;
+	 */
+
+     function procesarAsignacionConVal(instruccion, tablaDeSimbolos){
+         
+        procesarDeclaracion(instruccion, tablaDeSimbolos);
+        
+        procesarAsignacion(instruccion, tablaDeSimbolos);
+     }
+
+
 
 /**
  * Función que se encarga de procesar la instrucción Mientras

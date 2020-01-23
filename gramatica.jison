@@ -82,6 +82,10 @@ instruccion
 	| RMIENTRAS PARIZQ expresion_logica PARDER LLAVIZQ instrucciones LLAVDER
 														{ $$ = instruccionesAPI.nuevoMientras($3, $6); }
 	| RNUMERO IDENTIFICADOR PTCOMA						{ $$ = instruccionesAPI.nuevoDeclaracion($2); }
+	
+	/*AGREGANDO: PARA QUE ACEPTE Ej: numero=87;   */
+	| RNUMERO IDENTIFICADOR IGUAL expresion_numerica PTCOMA { $$ = instruccionesAPI.nuevoAsignacionConVal($2,$4); }
+
 	| IDENTIFICADOR IGUAL expresion_numerica PTCOMA		{ $$ = instruccionesAPI.nuevoAsignacion($1, $3); }
 	| RIF PARIZQ expresion_logica PARDER LLAVIZQ instrucciones LLAVDER
 														{ $$ = instruccionesAPI.nuevoIf($3, $6); }

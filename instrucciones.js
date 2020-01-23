@@ -129,6 +129,25 @@ const instruccionesAPI = {
 		}
 	},
 
+
+
+	/**
+	 * SE ESTA AGREGANDO UN OBJETO QUE ACEPTE Ej: nuemro=87;
+	 * @param {*} identificador 
+	 * @param {*} expresionNumerica
+	 * @param {*} valor
+	 */
+
+	nuevoAsignacionConVal: function(identificador, expresionNumerica) {
+		return {
+			tipo: TIPO_INSTRUCCION.ASIGNACIONVAL,
+			identificador: identificador,
+			expresionNumerica: expresionNumerica
+		}
+	},
+
+
+
 	/**
 	 * Crea un objeto tipo Instrucción para la sentencia If.
 	 * @param {*} expresionLogica 
