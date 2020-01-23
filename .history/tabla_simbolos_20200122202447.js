@@ -1,8 +1,6 @@
 // Constantes para los tipos de datos.
 const TIPO_DATO = {
-    NUMERO: 'NUMERO',
-    STRING: 'STRING'
-
+    NUMERO: 'NUMERO'
 }
 
 
@@ -51,31 +49,10 @@ class TS {
      * @param {*} id 
      * @param {*} valor 
      */
-    actualizar(id, valor) { //AQUI VAMOS A VALIDAR TIPOS
+    actualizar(id, valor) {
         const simbolo = this._simbolos.filter(simbolo => simbolo.id === id)[0];
-        if (simbolo) {
-            if(simbolo.tipo===valor.tipo){
-                if(simbolo.tipo===TIPO_DATO.NUMERO){
-                    if(valor.valor instanceof String){ //para que no hayan clavos, convertimos si es necesario
-                        simbolo.valor = parseInt(valor.valor,10);
-                    }else{
-                        simbolo.valor = valor.valor;
-                    }
-                }else{
-                    if(valor.valor instanceof Number){ //para que no hayan clavos, convertimos si es necesario
-                        simbolo.valor = valor.valor.toString();
-                    }else{
-                        simbolo.valor = valor.valor;
-                    }
-                }
-                
-            }else{
-                throw 'ERROR DE TIPOS -> variable: ' + id + ' tiene tipo: '+simbolo.tipo +' y el valor a asignar es de tipo: '+valor.tipo;
-            }
-        }
-        else {
-            throw 'ERROR: variable: ' + id + ' no ha sido definida';
-        }
+        if (simbolo) simbolo.valor = valor;
+        else throw 'ERROR: variable: ' + id + ' no ha sido definida';
     }
 
     /**
@@ -85,7 +62,7 @@ class TS {
     obtener(id) {
         const simbolo = this._simbolos.filter(simbolo => simbolo.id === id)[0];
 
-        if (simbolo) return simbolo; //aqui devolvemos el simbolo completo
+        if (simbolo) return simbolo.valor;
         else throw 'ERROR: variable: ' + id + ' no ha sido definida';
     }
 

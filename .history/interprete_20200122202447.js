@@ -77,11 +77,10 @@ function procesarExpresionNumerica(expresion, tablaDeSimbolos) {
         // Es un valor negado.
         // En este caso necesitamos procesar el valor del operando para poder negar su valor.
         // Para esto invocamos (recursivamente) esta función para sesolver el valor del operando.
-        const valor = procesarExpresionNumerica(expresion.operandoIzq, tablaDeSimbolos).valor;     // resolvemos el operando
+        const valor = procesarExpresionNumerica(expresion.operandoIzq, tablaDeSimbolos);     // resolvemos el operando
         
         // Retornamos el valor negado.
-        const res= valor * -1;
-        return {valor: res, tipo: TIPO_DATO.NUMERO};
+        return valor * -1;
     } else if (expresion.tipo === TIPO_OPERACION.SUMA 
         || expresion.tipo === TIPO_OPERACION.RESTA
         || expresion.tipo === TIPO_OPERACION.MULTIPLICACION
@@ -89,39 +88,21 @@ function procesarExpresionNumerica(expresion, tablaDeSimbolos) {
         // Es una operación aritmética.
         // En este caso necesitamos procesar los operandos antes de realizar la operación.
         // Para esto incovacmos (recursivamente) esta función para resolver los valores de los operandos.
-        let valorIzq = procesarExpresionNumerica(expresion.operandoIzq, tablaDeSimbolos);      // resolvemos el operando izquierdo.
-        let valorDer = procesarExpresionNumerica(expresion.operandoDer, tablaDeSimbolos);      // resolvemos el operando derecho.
-        if(valorIzq.tipo!==TIPO_DATO.NUMERO || valorDer.tipo!==TIPO_DATO.NUMERO){
-            throw 'ERROR: se esperaban expresiones numericas para ejecutar la: ' + expresion.tipo;
-        }else{
-            valorIzq=valorIzq.valor;
-            valorDer=valorDer.valor;
-        }
-        if (expresion.tipo === TIPO_OPERACION.SUMA){
-            const res= valorIzq + valorDer;
-            return {valor: res, tipo: TIPO_DATO.NUMERO };
-        }
-        if (expresion.tipo === TIPO_OPERACION.RESTA) {
-            const res= valorIzq - valorDer;
-            return {valor: res, tipo: TIPO_DATO.NUMERO };
-        }
-        if (expresion.tipo === TIPO_OPERACION.MULTIPLICACION) {
-            const res= valorIzq * valorDer;
-            return {valor: res, tipo: TIPO_DATO.NUMERO };
-        }
-        if (expresion.tipo === TIPO_OPERACION.DIVISION) {
-            const res= valorIzq / valorDer;
-            return {valor: res, tipo: TIPO_DATO.NUMERO };
-        };
+        const valorIzq = procesarExpresionNumerica(expresion.operandoIzq, tablaDeSimbolos);      // resolvemos el operando izquierdo.
+        const valorDer = procesarExpresionNumerica(expresion.operandoDer, tablaDeSimbolos);      // resolvemos el operando derecho.
+
+        if (expresion.tipo === TIPO_OPERACION.SUMA) return valorIzq + valorDer;
+        if (expresion.tipo === TIPO_OPERACION.RESTA) return valorIzq - valorDer;
+        if (expresion.tipo === TIPO_OPERACION.MULTIPLICACION) return valorIzq * valorDer;
+        if (expresion.tipo === TIPO_OPERACION.DIVISION) return valorIzq / valorDer;
     } else if (expresion.tipo === TIPO_VALOR.NUMERO) {
         // Es un valor numérico.
         // En este caso únicamente retornamos el valor obtenido por el parser directamente.
-        return {valor: expresion.valor, tipo: TIPO_DATO.NUMERO };
+        return expresion.valor;
     } else if (expresion.tipo === TIPO_VALOR.IDENTIFICADOR) {
         // Es un identificador.
         // Obtenemos el valor de la tabla de simbolos
-        const sym = tablaDeSimbolos.obtener(expresion.valor);
-        return {valor: sym.valor, tipo: sym.tipo};
+        return tablaDeSimbolos.obtener(expresion.valor);
     } else {
         throw 'ERROR: expresión numérica no válida: ' + expresion;
     }
@@ -138,21 +119,21 @@ function procesarExpresionCadena(expresion, tablaDeSimbolos) {
         // Es una operación de concatenación.
         // En este caso necesitamos procesar los operandos antes de realizar la concatenación.
         // Para esto invocamos (recursivamente) esta función para resolver los valores de los operandos.
-        const cadIzq = procesarExpresionCadena(expresion.operandoIzq, tablaDeSimbolos).valor;      // resolvemos el operando izquierdo.
-        const cadDer = procesarExpresionCadena(expresion.operandoDer, tablaDeSimbolos).valor;      // resolvemos el operando derecho.
-        // Retornamos el resultado de la operación de concatenación.
-        const res=cadIzq + cadDer;
-        return {valor: res, tipo: TIPO_DATO.STRING};   
+        const cadIzq = procesarExpresionCadena(expresion.operandoIzq, tablaDeSimbolos);      // resolvemos el operando izquierdo.
+        const cadDer = procesarExpresionCadena(expresion.operandoDer, tablaDeSimbolos);      // resolvemos el operando derecho.
 
+        // Retornamos el resultado de la operación de concatenación.
+        
+        return cadIzq + cadDer;     
     } else if (expresion.tipo === TIPO_VALOR.CADENA) {
         // Es una cadena.
         // En este caso únicamente retornamos el valor obtenido por el parser directamente.
-        return {valor: expresion.valor, tipo: TIPO_DATO.STRING };
+        return expresion.valor;
     } else {
         // Es una epresión numérica.
         // En este caso invocamos la función que se encarga de procesar las expresiones numéricas
         // y retornamos su valor en cadena.
-        return procesarExpresionNumerica(expresion, tablaDeSimbolos);
+        return procesarExpresionNumerica(expresion, tablaDeSimbolos).toString()
     }
 }
 
@@ -164,14 +145,8 @@ function procesarExpresionCadena(expresion, tablaDeSimbolos) {
  */
 function procesarExpresionLogica(expresion, tablaDeSimbolos) {
     // En este caso necesitamos procesar los operandos antes de realizar la comparación.
-    let valorIzq = procesarExpresionNumerica(expresion.operandoIzq, tablaDeSimbolos);      // resolvemos el operando izquierdo.
-    let valorDer = procesarExpresionNumerica(expresion.operandoDer, tablaDeSimbolos);      // resolvemos el operando derecho.
-    if(valorIzq.tipo!==TIPO_DATO.NUMERO || valorDer.tipo!==TIPO_DATO.NUMERO){
-        throw 'ERROR: se esperaban expresiones numericas para ejecutar la: ' + expresion.tipo;
-    }else{
-        valorIzq=valorIzq.valor;
-        valorDer=valorDer.valor;
-    }
+    const valorIzq = procesarExpresionNumerica(expresion.operandoIzq, tablaDeSimbolos);      // resolvemos el operando izquierdo.
+    const valorDer = procesarExpresionNumerica(expresion.operandoDer, tablaDeSimbolos);      // resolvemos el operando derecho.
 
     if (expresion.tipo === TIPO_OPERACION.MAYOR_QUE) return valorIzq > valorDer;
     if (expresion.tipo === TIPO_OPERACION.MENOR_QUE) return valorIzq < valorDer;
@@ -183,7 +158,7 @@ function procesarExpresionLogica(expresion, tablaDeSimbolos) {
  * @param {*} tablaDeSimbolos 
  */
 function procesarImprimir(instruccion, tablaDeSimbolos) {
-    const cadena = procesarExpresionCadena(instruccion.expresionCadena, tablaDeSimbolos).valor;
+    const cadena = procesarExpresionCadena(instruccion.expresionCadena, tablaDeSimbolos);
     console.log('> ' + cadena);
 }
 
@@ -192,8 +167,8 @@ function procesarImprimir(instruccion, tablaDeSimbolos) {
  * @param {*} instruccion 
  * @param {*} tablaDeSimbolos 
  */
-function procesarDeclaracion(instruccion, tablaDeSimbolos) { //aqui cambiamos para que acepte el tipo_dato de la declaracion
-    tablaDeSimbolos.agregar(instruccion.identificador, instruccion.tipo_dato);
+function procesarDeclaracion(instruccion, tablaDeSimbolos) {
+    tablaDeSimbolos.agregar(instruccion.identificador, TIPO_DATO.NUMERO);
 }
 
 /**
@@ -202,7 +177,7 @@ function procesarDeclaracion(instruccion, tablaDeSimbolos) { //aqui cambiamos pa
  * @param {*} tablaDeSimbolos 
  */
 function procesarAsignacion(instruccion, tablaDeSimbolos) {
-    const valor = procesarExpresionCadena(instruccion.expresionNumerica, tablaDeSimbolos); //aqui quiero que retorne: tipo y valor
+    const valor = procesarExpresionNumerica(instruccion.expresionNumerica, tablaDeSimbolos)
     tablaDeSimbolos.actualizar(instruccion.identificador, valor);
 }
 

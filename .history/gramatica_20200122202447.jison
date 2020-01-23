@@ -15,7 +15,6 @@
 
 "imprimir"			return 'RIMPRIMIR';
 "numero"			return 'RNUMERO';
-"string"			return 'RSTRING';
 "mientras"			return 'RMIENTRAS';
 "if"				return 'RIF';
 "else"				return 'RELSE';
@@ -52,7 +51,6 @@
 %{
 	const TIPO_OPERACION	= require('./instrucciones').TIPO_OPERACION;
 	const TIPO_VALOR 		= require('./instrucciones').TIPO_VALOR;
-	const TIPO_DATO			= require('./tabla_simbolos').TIPO_DATO; //para jalar el tipo de dato
 	const instruccionesAPI	= require('./instrucciones').instruccionesAPI;
 %}
 
@@ -83,16 +81,14 @@ instruccion
 	: RIMPRIMIR PARIZQ expresion_cadena PARDER PTCOMA	{ $$ = instruccionesAPI.nuevoImprimir($3); }
 	| RMIENTRAS PARIZQ expresion_logica PARDER LLAVIZQ instrucciones LLAVDER
 														{ $$ = instruccionesAPI.nuevoMientras($3, $6); }
-	| RNUMERO IDENTIFICADOR PTCOMA						{ $$ = instruccionesAPI.nuevoDeclaracion($2, TIPO_DATO.NUMERO); }
-	| RSTRING IDENTIFICADOR PTCOMA						{ $$ = instruccionesAPI.nuevoDeclaracion($2, TIPO_DATO.STRING); }
-	| IDENTIFICADOR IGUAL expresion_cadena PTCOMA		{ $$ = instruccionesAPI.nuevoAsignacion($1, $3); } //esto soporta expresiones_cadena y expresion_numerica
+	| RNUMERO IDENTIFICADOR PTCOMA						{ $$ = instruccionesAPI.nuevoDeclaracion($2); }
+	| IDENTIFICADOR IGUAL expresion_numerica PTCOMA		{ $$ = instruccionesAPI.nuevoAsignacion($1, $3); }
 	| RIF PARIZQ expresion_logica PARDER LLAVIZQ instrucciones LLAVDER
 														{ $$ = instruccionesAPI.nuevoIf($3, $6); }
 	| RIF PARIZQ expresion_logica PARDER LLAVIZQ instrucciones LLAVDER RELSE LLAVIZQ instrucciones LLAVDER
 														{ $$ = instruccionesAPI.nuevoIf($3, $6, $10); }
 	| error { console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column); }
 ;
-
 
 
 expresion_numerica

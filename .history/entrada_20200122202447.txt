@@ -4,25 +4,6 @@
  * Septiembre - 2015                      *
  ******************************************/
 
-//declaracion de cadenas - Ronald Romero
-string var1;
-string var2;
-var1="prueba de ingreso";
-var2="otra prueba";
-
-//Se imprime un separador
-imprimir("----------------");
-//Imprimimos un encabezado para ver si funciona la declaracion de string
-imprimir("LA SIGUIENTE ES LA PRUEBA DE DECLARACION DE STRING");
-imprimir(var1 & " --- " & var2);
-imprimir(var1 & 5*5 & var2);
-var1=5*5 & "Hola";
-imprimir("El nuevo valor de var1 es: " & var1);
-
-//Se imprime un separador
-imprimir("----------------");
-
-
 //Se imprime el encabezado
 imprimir("Tablas de" & " multiplicar");
 
