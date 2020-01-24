@@ -10,7 +10,7 @@ const TIPO_DATO = {
  * @param {*} tipo 
  * @param {*} valor 
  */
-function crearSimbolo(id, tipo, valor) {
+function crearSimbolo(id, tipo, valor=0) {
     return {
         id: id,
         tipo: tipo,
