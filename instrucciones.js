@@ -1,32 +1,32 @@
 
 // Constantes para los tipos de 'valores' que reconoce nuestra gramática.
 const TIPO_VALOR = {
-	NUMERO: 'VAL_NUMERO',
-	IDENTIFICADOR: 'VAL_IDENTIFICADOR',
-	CADENA: 'VAL_CADENA',
+	NUMERO:         'VAL_NUMERO',
+	IDENTIFICADOR:  'VAL_IDENTIFICADOR',
+	CADENA:         'VAL_CADENA',
 }
 
 // Constantes para los tipos de 'operaciones' que soporta nuestra gramática.
 const TIPO_OPERACION = {
-	SUMA: 'OP_SUMA',
-	RESTA: 'OP_RESTA',
+	SUMA:           'OP_SUMA',
+	RESTA:          'OP_RESTA',
 	MULTIPLICACION: 'OP_MULTIPLICACION',
-	DIVISION: 'OP_DIVISION',
-	NEGATIVO: 'OP_NEGATIVO',
-	MAYOR_QUE: 'OP_MAYOR_QUE',
-	MENOR_QUE: 'OP_MENOR_QUE',
-	CONCATENACION: 'OP_CONCATENACION'
+	DIVISION:       'OP_DIVISION',
+	NEGATIVO:       'OP_NEGATIVO',
+	MAYOR_QUE:      'OP_MAYOR_QUE',
+	MENOR_QUE:      'OP_MENOR_QUE',
+	CONCATENACION:  'OP_CONCATENACION'
 };
 
 // Constantes para los tipos de 'instrucciones' válidas en nuestra gramática.
 const TIPO_INSTRUCCION = {
-	IMPRIMIR: 'INSTR_IMPRIMIR',
-	MIENTRAS: 'INSTR_MIENTRAS',
-	DECLARACION: 'INSTR_DECLARACION',
-	ASIGNACION: 'INSTR_ASIGANCION',
-	IF: 'INSTR_IF',
-	IF_ELSE: 'INSTR_ELSE',
-	PARA: 'INST_PARA'
+	IMPRIMIR:		'INSTR_IMPRIMIR',
+	MIENTRAS:		'INSTR_MIENTRAS',
+	DECLARACION:	'INSTR_DECLARACION',
+	ASIGNACION:		'INSTR_ASIGANCION',
+	IF:				'INSTR_IF',
+	IF_ELSE:		'INSTR_ELSE',
+	PARA: 			'INST_PARA'
 }
 
 /**
@@ -57,7 +57,7 @@ const instruccionesAPI = {
 	 * @param {*} operandoDer 
 	 * @param {*} tipo 
 	 */
-	nuevoOperacionBinaria: function (operandoIzq, operandoDer, tipo) {
+	nuevoOperacionBinaria: function(operandoIzq, operandoDer, tipo) {
 		return nuevaOperacion(operandoIzq, operandoDer, tipo);
 	},
 
@@ -66,7 +66,7 @@ const instruccionesAPI = {
 	 * @param {*} operando 
 	 * @param {*} tipo 
 	 */
-	nuevoOperacionUnaria: function (operando, tipo) {
+	nuevoOperacionUnaria: function(operando, tipo) {
 		return nuevaOperacion(operando, undefined, tipo);
 	},
 
@@ -75,7 +75,7 @@ const instruccionesAPI = {
 	 * @param {*} valor 
 	 * @param {*} tipo 
 	 */
-	nuevoValor: function (valor, tipo) {
+	nuevoValor: function(valor, tipo) {
 		return {
 			tipo: tipo,
 			valor: valor
@@ -86,7 +86,7 @@ const instruccionesAPI = {
 	 * Crea un objeto tipo Instrucción para la sentencia Imprimir.
 	 * @param {*} expresionCadena 
 	 */
-	nuevoImprimir: function (expresionCadena) {
+	nuevoImprimir: function(expresionCadena) {
 		return {
 			tipo: TIPO_INSTRUCCION.IMPRIMIR,
 			expresionCadena: expresionCadena
@@ -98,64 +98,12 @@ const instruccionesAPI = {
 	 * @param {*} expresionLogica 
 	 * @param {*} instrucciones 
 	 */
-	nuevoMientras: function (expresionLogica, instrucciones) {
+	nuevoMientras: function(expresionLogica, instrucciones) {
 		return {
 			tipo: TIPO_INSTRUCCION.MIENTRAS,
 			expresionLogica: expresionLogica,
 			instrucciones: instrucciones
 		};
-	},
-
-	/**
-	 * Crea un objeto tipo Instrucción para la sentencia Declaración.
-	 * @param {*} identificador 
-	 */
-	nuevoDeclaracion: function (identificador) {
-		return {
-			tipo: TIPO_INSTRUCCION.DECLARACION,
-			identificador: identificador
-		}
-	},
-
-	/**
-	 * Crea un objeto tipo Instrucción para la sentencia Asignación.
-	 * @param {*} identificador 
-	 * @param {*} expresionNumerica 
-	 */
-	nuevoAsignacion: function (identificador, expresionNumerica) {
-		return {
-			tipo: TIPO_INSTRUCCION.ASIGNACION,
-			identificador: identificador,
-			expresionNumerica: expresionNumerica
-		}
-	},
-
-	/**
-	 * Crea un objeto tipo Instrucción para la sentencia If.
-	 * @param {*} expresionLogica 
-	 * @param {*} instrucciones 
-	 */
-	nuevoIf: function (expresionLogica, instrucciones) {
-		return {
-			tipo: TIPO_INSTRUCCION.IF,
-			expresionLogica: expresionLogica,
-			instrucciones: instrucciones
-		}
-	},
-
-	/**
-	 * Crea un objeto tipo Instrucción para la sentencia If-Else.
-	 * @param {*} expresionLogica 
-	 * @param {*} instruccionesIfVerdadero 
-	 * @param {*} instruccionesIfFalso 
-	 */
-	nuevoIfElse: function (expresionLogica, instruccionesIfVerdadero, instruccionesIfFalso) {
-		return {
-			tipo: TIPO_INSTRUCCION.IF_ELSE,
-			expresionLogica: expresionLogica,
-			instruccionesIfVerdadero: instruccionesIfVerdadero,
-			instruccionesIfFalso: instruccionesIfFalso
-		}
 	},
 
 	/**
@@ -174,8 +122,59 @@ const instruccionesAPI = {
 			variable: variable,
 			valorVariable: valorVariable
 		}
-	}
+	},
 
+	/**
+	 * Crea un objeto tipo Instrucción para la sentencia Declaración.
+	 * @param {*} identificador 
+	 */
+	nuevoDeclaracion: function(identificador) {
+		return {
+			tipo: TIPO_INSTRUCCION.DECLARACION,
+			identificador: identificador
+		}
+	},
+
+	/**
+	 * Crea un objeto tipo Instrucción para la sentencia Asignación.
+	 * @param {*} identificador 
+	 * @param {*} expresionNumerica 
+	 */
+	nuevoAsignacion: function(identificador, expresionNumerica) {
+		return {
+			tipo: TIPO_INSTRUCCION.ASIGNACION,
+			identificador: identificador,
+			expresionNumerica: expresionNumerica
+		}
+	},
+
+	/**
+	 * Crea un objeto tipo Instrucción para la sentencia If.
+	 * @param {*} expresionLogica 
+	 * @param {*} instrucciones 
+	 */
+	nuevoIf: function(expresionLogica, instrucciones) {
+		return {
+			tipo: TIPO_INSTRUCCION.IF,
+			expresionLogica: expresionLogica,
+			instrucciones: instrucciones
+		}
+	},
+
+	/**
+	 * Crea un objeto tipo Instrucción para la sentencia If-Else.
+	 * @param {*} expresionLogica 
+	 * @param {*} instruccionesIfVerdadero 
+	 * @param {*} instruccionesIfFalso 
+	 */
+	nuevoIfElse: function(expresionLogica, instruccionesIfVerdadero, instruccionesIfFalso) {
+		return {
+			tipo: TIPO_INSTRUCCION.IF_ELSE,
+			expresionLogica: expresionLogica,
+			instruccionesIfVerdadero: instruccionesIfVerdadero,
+			instruccionesIfFalso: instruccionesIfFalso
+		}
+	}
 }
 
 // Exportamos nuestras constantes y nuestra API

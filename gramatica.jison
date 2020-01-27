@@ -83,7 +83,7 @@ instruccion
 	| RMIENTRAS PARIZQ expresion_logica PARDER LLAVIZQ instrucciones LLAVDER
 														{ $$ = instruccionesAPI.nuevoMientras($3, $6); }
 	| RPARA PARIZQ IDENTIFICADOR IGUAL expresion_numerica PTCOMA expresion_logica PTCOMA IDENTIFICADOR MAS MAS PARDER LLAVIZQ instrucciones LLAVDER
-														{ $$ = instruccionesAPI.nuevoPara($3,$5,$7,$9,$14) } 
+														{ $$ = instruccionesAPI.nuevoPara($3,$5,$7,$9,$14) }
 	| RNUMERO IDENTIFICADOR PTCOMA						{ $$ = instruccionesAPI.nuevoDeclaracion($2); }
 	| IDENTIFICADOR IGUAL expresion_numerica PTCOMA		{ $$ = instruccionesAPI.nuevoAsignacion($1, $3); }
 	| RIF PARIZQ expresion_logica PARDER LLAVIZQ instrucciones LLAVDER
