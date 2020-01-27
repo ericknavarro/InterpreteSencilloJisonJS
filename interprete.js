@@ -1,4 +1,4 @@
-var fs = require('fs'); 
+var fs = require('fs');
 var parser = require('./gramatica');
 
 // Constantes para operaciones, instrucciones y valores
@@ -39,7 +39,7 @@ procesarBloque(ast, tsGlobal);
  */
 function procesarBloque(instrucciones, tablaDeSimbolos) {
     instrucciones.forEach(instruccion => {
-   
+
         if (instruccion.tipo === TIPO_INSTRUCCION.IMPRIMIR) {
             // Procesando Instrucción Imprimir
             procesarImprimir(instruccion, tablaDeSimbolos);
@@ -58,6 +58,9 @@ function procesarBloque(instrucciones, tablaDeSimbolos) {
         } else if (instruccion.tipo === TIPO_INSTRUCCION.IF_ELSE) {
             // Procesando Instrucción If Else
             procesarIfElse(instruccion, tablaDeSimbolos);
+        } else if (instruccion.tipo == TIPO_INSTRUCCION.PARA) {
+            // Procesando Instrucción Para
+            procesarPara(instruccion, tablaDeSimbolos);
         } else {
             throw 'ERROR: tipo de instrucción no válido: ' + instruccion;
         }
@@ -78,10 +81,10 @@ function procesarExpresionNumerica(expresion, tablaDeSimbolos) {
         // En este caso necesitamos procesar el valor del operando para poder negar su valor.
         // Para esto invocamos (recursivamente) esta función para sesolver el valor del operando.
         const valor = procesarExpresionNumerica(expresion.operandoIzq, tablaDeSimbolos);     // resolvemos el operando
-        
+
         // Retornamos el valor negado.
         return valor * -1;
-    } else if (expresion.tipo === TIPO_OPERACION.SUMA 
+    } else if (expresion.tipo === TIPO_OPERACION.SUMA
         || expresion.tipo === TIPO_OPERACION.RESTA
         || expresion.tipo === TIPO_OPERACION.MULTIPLICACION
         || expresion.tipo === TIPO_OPERACION.DIVISION) {
@@ -123,8 +126,8 @@ function procesarExpresionCadena(expresion, tablaDeSimbolos) {
         const cadDer = procesarExpresionCadena(expresion.operandoDer, tablaDeSimbolos);      // resolvemos el operando derecho.
 
         // Retornamos el resultado de la operación de concatenación.
-        
-        return cadIzq + cadDer;     
+
+        return cadIzq + cadDer;
     } else if (expresion.tipo === TIPO_VALOR.CADENA) {
         // Es una cadena.
         // En este caso únicamente retornamos el valor obtenido por el parser directamente.
@@ -188,6 +191,19 @@ function procesarMientras(instruccion, tablaDeSimbolos) {
     while (procesarExpresionLogica(instruccion.expresionLogica, tablaDeSimbolos)) {
         const tsMientras = new TS(tablaDeSimbolos.simbolos);
         procesarBloque(instruccion.instrucciones, tsMientras);
+    }
+}
+
+/**
+ * Función que se encarga de procesar la instrucción Para
+ */
+function procesarPara(instruccion, tablaDeSimbolos) {
+    const valor = procesarExpresionNumerica(instruccion.valorVariable, tablaDeSimbolos);
+    tablaDeSimbolos.actualizar(instruccion.variable, valor);
+    for (var i = tablaDeSimbolos.obtener(instruccion.variable); procesarExpresionLogica(instruccion.expresionLogica, tablaDeSimbolos);
+        tablaDeSimbolos.actualizar(instruccion.variable, tablaDeSimbolos.obtener(instruccion.variable) + 1)) {
+        const tsPara = new TS(tablaDeSimbolos.simbolos);
+        procesarBloque(instruccion.instrucciones, tsPara);
     }
 }
 
