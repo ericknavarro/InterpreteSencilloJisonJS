@@ -25,7 +25,8 @@ const TIPO_INSTRUCCION = {
 	DECLARACION:	'INSTR_DECLARACION',
 	ASIGNACION:		'INSTR_ASIGANCION',
 	IF:				'INSTR_IF',
-	IF_ELSE:		'INSTR_ELSE'
+	IF_ELSE:		'INSTR_ELSE',
+	ASIGNACION_SIMPLIFICADA: 'ASIGNACION_SIMPLIFICADA'
 }
 
 /**
@@ -155,7 +156,29 @@ const instruccionesAPI = {
 			instruccionesIfVerdadero: instruccionesIfVerdadero,
 			instruccionesIfFalso: instruccionesIfFalso
 		}
-	}
+	},
+	/**
+	* Crea un objeto tipo Operador (+ , - , / , *) 
+	* @param {*} operador 
+	*/
+   nuevoOperador: function(operador){
+	   return operador 
+   },
+
+   /**
+	* Crea un objeto tipo Instrucción para la sentencia Asignacion con Operador
+	* @param {*} identificador 
+	* @param {*} operador 
+	* @param {*} expresionCadena 
+	*/
+   nuevoAsignacionSimplificada: function(identificador, operador , expresionNumerica){
+	   return{
+		   tipo: TIPO_INSTRUCCION.ASIGNACION_SIMPLIFICADA,
+		   operador : operador,
+		   expresionNumerica: expresionNumerica,
+		   identificador : identificador
+	   } 
+   }
 }
 
 // Exportamos nuestras constantes y nuestra API
