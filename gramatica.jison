@@ -87,9 +87,17 @@ instruccion
 														{ $$ = instruccionesAPI.nuevoIf($3, $6); }
 	| RIF PARIZQ expresion_logica PARDER LLAVIZQ instrucciones LLAVDER RELSE LLAVIZQ instrucciones LLAVDER
 														{ $$ = instruccionesAPI.nuevoIf($3, $6, $10); }
+	| IDENTIFICADOR operadores IGUAL expresion_numerica PTCOMA	
+	                                                    { $$ = instruccionesAPI.nuevoAsignacionSimplificada($1, $2, $4); }
 	| error { console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column); }
 ;
 
+operadores
+    : MAS      { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.SUMA); }
+	| MENOS    { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.RESTA); }
+    | POR      { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.MULTIPLICACION); }
+	| DIVIDIDO { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.DIVISION); }
+;
 
 expresion_numerica
 	: MENOS expresion_numerica %prec UMENOS				{ $$ = instruccionesAPI.nuevoOperacionUnaria($2, TIPO_OPERACION.NEGATIVO); }
