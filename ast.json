@@ -277,5 +277,33 @@
         ]
       }
     ]
+  },
+  {
+    "tipo": "INSTR_DECLARACION",
+    "identificador": "var"
+  },
+  {
+    "tipo": "INSTR_ASIGANCION",
+    "identificador": "var",
+    "expresionNumerica": {
+      "tipo": "VAL_NUMERO",
+      "valor": 10
+    }
+  },
+  {
+    "tipo": "ASIGNACION_SIMPLIFICADA",
+    "operador": "OP_RESTA",
+    "expresionNumerica": {
+      "tipo": "VAL_NUMERO",
+      "valor": 15
+    },
+    "identificador": "var"
+  },
+  {
+    "tipo": "INSTR_IMPRIMIR",
+    "expresionCadena": {
+      "tipo": "VAL_IDENTIFICADOR",
+      "valor": "var"
+    }
   }
 ]

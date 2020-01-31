@@ -63,3 +63,7 @@ If(a>10){
 	imprimir("a es menor o igual que 10.");
 }
 
+numero var;
+var =10;
+var -= 15;
+imprimir(var);
