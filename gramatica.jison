@@ -26,6 +26,10 @@
 "("					return 'PARIZQ';
 ")"					return 'PARDER';
 
+"+="				return 'O_MAS';
+"-="				return 'O_MENOS';
+"*="				return 'O_POR';
+"/="				return 'O_DIVIDIDO';
 
 "+"					return 'MAS';
 "-"					return 'MENOS';
@@ -87,16 +91,16 @@ instruccion
 														{ $$ = instruccionesAPI.nuevoIf($3, $6); }
 	| RIF PARIZQ expresion_logica PARDER LLAVIZQ instrucciones LLAVDER RELSE LLAVIZQ instrucciones LLAVDER
 														{ $$ = instruccionesAPI.nuevoIf($3, $6, $10); }
-	| IDENTIFICADOR operadores IGUAL expresion_numerica PTCOMA	
-	                                                    { $$ = instruccionesAPI.nuevoAsignacionSimplificada($1, $2, $4); }
+	| IDENTIFICADOR operadores expresion_numerica PTCOMA	
+	                                                    { $$ = instruccionesAPI.nuevoAsignacionSimplificada($1, $2, $3); }
 	| error { console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column); }
 ;
 
 operadores
-    : MAS      { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.SUMA); }
-	| MENOS    { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.RESTA); }
-    | POR      { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.MULTIPLICACION); }
-	| DIVIDIDO { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.DIVISION); }
+    : O_MAS      { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.SUMA); }
+	| O_MENOS    { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.RESTA); }
+    | O_POR      { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.MULTIPLICACION); }
+	| O_DIVIDIDO { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.DIVISION); }
 ;
 
 expresion_numerica
