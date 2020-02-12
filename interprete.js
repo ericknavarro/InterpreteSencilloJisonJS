@@ -95,10 +95,10 @@ function procesarExpresionNumerica(expresion, tablaDeSimbolos) {
         if (expresion.tipo === TIPO_OPERACION.RESTA) return valorIzq - valorDer;
         if (expresion.tipo === TIPO_OPERACION.MULTIPLICACION) return valorIzq * valorDer;
         if (expresion.tipo === TIPO_OPERACION.DIVISION){ 
-            if(valorDer==0)
+            if(valorDer === 0)
                 throw 'ERROR: la division entre 0 da como resultado: '+valorIzq/valorDer;
-            return valorIzq / valorDer};
-	}
+            return valorIzq / valorDer;
+        }
     } else if (expresion.tipo === TIPO_VALOR.NUMERO) {
         // Es un valor numérico.
         // En este caso únicamente retornamos el valor obtenido por el parser directamente.
