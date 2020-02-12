@@ -142,18 +142,50 @@ function procesarExpresionCadena(expresion, tablaDeSimbolos) {
 }
 
 /**
- * De acuerdo con nuestra gramática, aqui, expresión puede ser una operación lógica MAYOR QUE o MENOR QUE
+ * De acuerdo con nuestra gramática, aqui, expresión puede ser una operación relacional MAYOR QUE, MENOR QUE, MAYOR IGUAL QUE, MENOR IGUAL QUE, IGUAL QUE o NO IGUAL QUE
  * @param {*} expresion 
  * @param {TS} tablaDeSimbolos
  * Evaluamos cada caso para resolver a un valor tipo booleando de acuerdo al tipo de operación.
  */
-function procesarExpresionLogica(expresion, tablaDeSimbolos) {
+function procesarExpresionRelacional(expresion, tablaDeSimbolos) {
     // En este caso necesitamos procesar los operandos antes de realizar la comparación.
     const valorIzq = procesarExpresionNumerica(expresion.operandoIzq, tablaDeSimbolos);      // resolvemos el operando izquierdo.
     const valorDer = procesarExpresionNumerica(expresion.operandoDer, tablaDeSimbolos);      // resolvemos el operando derecho.
 
     if (expresion.tipo === TIPO_OPERACION.MAYOR_QUE) return valorIzq > valorDer;
     if (expresion.tipo === TIPO_OPERACION.MENOR_QUE) return valorIzq < valorDer;
+    if (expresion.tipo === TIPO_OPERACION.MAYOR_IGUAL) return valorIzq >= valorDer;
+    if (expresion.tipo === TIPO_OPERACION.MENOR_IGUAL) return valorIzq <= valorDer;
+    if (expresion.tipo === TIPO_OPERACION.DOBLE_IGUAL) return valorIzq === valorDer;
+    if (expresion.tipo === TIPO_OPERACION.NO_IGUAL) return valorIzq !== valorDer;
+}
+
+/**
+ * De acuerdo con nuestra gramática, aqui, expresión puede ser una operación lógica AND, OR o NOT
+ * @param {*} expresion 
+ * @param {TS} tablaDeSimbolos
+ * Evaluamos cada caso para resolver a un valor tipo booleando de acuerdo al tipo de operación.
+ */
+function procesarExpresionLogica(expresion, tablaDeSimbolos) {
+
+    if (expresion.tipo === TIPO_OPERACION.AND) { 
+        // En este caso necesitamos procesar los operandos para &&.
+        const valorIzq = procesarExpresionRelacional(expresion.operandoIzq, tablaDeSimbolos);      // resolvemos el operando izquierdo.
+        const valorDer = procesarExpresionRelacional(expresion.operandoDer, tablaDeSimbolos);      // resolvemos el operando derecho.
+        return valorIzq && valorDer;
+    }
+    if (expresion.tipo === TIPO_OPERACION.OR) { 
+        // En este caso necesitamos procesar los operandos para ||.
+        const valorIzq = procesarExpresionRelacional(expresion.operandoIzq, tablaDeSimbolos);      // resolvemos el operando izquierdo.
+        const valorDer = procesarExpresionRelacional(expresion.operandoDer, tablaDeSimbolos);      // resolvemos el operando derecho.
+        return valorIzq || valorDer;
+    }
+    if (expresion.tipo === TIPO_OPERACION.NOT) { 
+        // En este caso necesitamos procesar solamente un operando para !.
+        const valor = procesarExpresionRelacional(expresion.operandoIzq, tablaDeSimbolos);      // resolvemos el operando izquierdo.
+        return !valor;
+    }
+    return procesarExpresionRelacional(expresion, tablaDeSimbolos);
 }
 
 /**
