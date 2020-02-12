@@ -46,6 +46,9 @@ function procesarBloque(instrucciones, tablaDeSimbolos) {
         } else if (instruccion.tipo === TIPO_INSTRUCCION.MIENTRAS) {
             // Procesando Instrucción Mientras
             procesarMientras(instruccion, tablaDeSimbolos);
+        } else if (instruccion.tipo == TIPO_INSTRUCCION.PARA) {
+            // Procesando Instrucción Para
+            procesarPara(instruccion, tablaDeSimbolos);
         } else if (instruccion.tipo === TIPO_INSTRUCCION.DECLARACION) {
             // Procesando Instrucción Declaración
             procesarDeclaracion(instruccion, tablaDeSimbolos);
@@ -224,6 +227,19 @@ function procesarMientras(instruccion, tablaDeSimbolos) {
     while (procesarExpresionLogica(instruccion.expresionLogica, tablaDeSimbolos)) {
         const tsMientras = new TS(tablaDeSimbolos.simbolos);
         procesarBloque(instruccion.instrucciones, tsMientras);
+    }
+}
+
+/**
+ * Función que se encarga de procesar la instrucción Para
+ */
+function procesarPara(instruccion, tablaDeSimbolos) {
+    const valor = procesarExpresionNumerica(instruccion.valorVariable, tablaDeSimbolos);
+    tablaDeSimbolos.actualizar(instruccion.variable, valor);
+    for (var i = tablaDeSimbolos.obtener(instruccion.variable); procesarExpresionLogica(instruccion.expresionLogica, tablaDeSimbolos);
+        tablaDeSimbolos.actualizar(instruccion.variable, tablaDeSimbolos.obtener(instruccion.variable) + 1)) {
+        const tsPara = new TS(tablaDeSimbolos.simbolos);
+        procesarBloque(instruccion.instrucciones, tsPara);
     }
 }
 

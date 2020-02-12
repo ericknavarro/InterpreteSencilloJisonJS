@@ -35,7 +35,8 @@ const TIPO_INSTRUCCION = {
 	DECLARACION:	'INSTR_DECLARACION',
 	ASIGNACION:		'INSTR_ASIGANCION',
 	IF:				'INSTR_IF',
-	IF_ELSE:		'INSTR_ELSE'
+	IF_ELSE:		'INSTR_ELSE',
+	PARA: 			'INST_PARA'
 }
 
 /**
@@ -113,6 +114,24 @@ const instruccionesAPI = {
 			expresionLogica: expresionLogica,
 			instrucciones: instrucciones
 		};
+	},
+
+	/**
+	 * Crea un objeto tipo instrucción para la sentencia Para.
+	 * @param {*} expresionLogica
+	 * @param {*} instrucciones
+	 * @param {*} aumento
+	 * @param {*} decremento
+	 */
+	nuevoPara: function (variable, valorVariable, expresionLogica, aumento, instrucciones) {
+		return {
+			tipo: TIPO_INSTRUCCION.PARA,
+			expresionLogica: expresionLogica,
+			instrucciones: instrucciones,
+			aumento: aumento,
+			variable: variable,
+			valorVariable: valorVariable
+		}
 	},
 
 	/**
