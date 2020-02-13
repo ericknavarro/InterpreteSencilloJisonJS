@@ -1,5 +1,137 @@
 [
   {
+    "tipo": "INSTR_DECLARACION",
+    "identificador": "var1",
+    "tipo_dato": "STRING"
+  },
+  {
+    "tipo": "INSTR_DECLARACION",
+    "identificador": "var2",
+    "tipo_dato": "STRING"
+  },
+  {
+    "tipo": "INSTR_ASIGANCION",
+    "identificador": "var1",
+    "expresionNumerica": {
+      "tipo": "VAL_CADENA",
+      "valor": "prueba de ingreso"
+    }
+  },
+  {
+    "tipo": "INSTR_ASIGANCION",
+    "identificador": "var2",
+    "expresionNumerica": {
+      "tipo": "VAL_CADENA",
+      "valor": "otra prueba"
+    }
+  },
+  {
+    "tipo": "INSTR_IMPRIMIR",
+    "expresionCadena": {
+      "tipo": "VAL_CADENA",
+      "valor": "----------------"
+    }
+  },
+  {
+    "tipo": "INSTR_IMPRIMIR",
+    "expresionCadena": {
+      "tipo": "VAL_CADENA",
+      "valor": "LA SIGUIENTE ES LA PRUEBA DE DECLARACION DE STRING"
+    }
+  },
+  {
+    "tipo": "INSTR_IMPRIMIR",
+    "expresionCadena": {
+      "operandoIzq": {
+        "operandoIzq": {
+          "tipo": "VAL_IDENTIFICADOR",
+          "valor": "var1"
+        },
+        "operandoDer": {
+          "tipo": "VAL_CADENA",
+          "valor": " --- "
+        },
+        "tipo": "OP_CONCATENACION"
+      },
+      "operandoDer": {
+        "tipo": "VAL_IDENTIFICADOR",
+        "valor": "var2"
+      },
+      "tipo": "OP_CONCATENACION"
+    }
+  },
+  {
+    "tipo": "INSTR_IMPRIMIR",
+    "expresionCadena": {
+      "operandoIzq": {
+        "operandoIzq": {
+          "tipo": "VAL_IDENTIFICADOR",
+          "valor": "var1"
+        },
+        "operandoDer": {
+          "operandoIzq": {
+            "tipo": "VAL_NUMERO",
+            "valor": 5
+          },
+          "operandoDer": {
+            "tipo": "VAL_NUMERO",
+            "valor": 5
+          },
+          "tipo": "OP_MULTIPLICACION"
+        },
+        "tipo": "OP_CONCATENACION"
+      },
+      "operandoDer": {
+        "tipo": "VAL_IDENTIFICADOR",
+        "valor": "var2"
+      },
+      "tipo": "OP_CONCATENACION"
+    }
+  },
+  {
+    "tipo": "INSTR_ASIGANCION",
+    "identificador": "var1",
+    "expresionNumerica": {
+      "operandoIzq": {
+        "operandoIzq": {
+          "tipo": "VAL_NUMERO",
+          "valor": 5
+        },
+        "operandoDer": {
+          "tipo": "VAL_NUMERO",
+          "valor": 5
+        },
+        "tipo": "OP_MULTIPLICACION"
+      },
+      "operandoDer": {
+        "tipo": "VAL_CADENA",
+        "valor": "Hola"
+      },
+      "tipo": "OP_CONCATENACION"
+    }
+  },
+  {
+    "tipo": "INSTR_IMPRIMIR",
+    "expresionCadena": {
+      "operandoIzq": {
+        "tipo": "VAL_CADENA",
+        "valor": "El nuevo valor de var1 es: "
+      },
+      "operandoDer": {
+        "tipo": "VAL_IDENTIFICADOR",
+        "valor": "var1"
+      },
+      "tipo": "OP_CONCATENACION"
+    }
+  },
+  {
+    "tipo": "INSTR_IMPRIMIR",
+    "expresionCadena": {
+      "tipo": "VAL_CADENA",
+      "valor": "----------------"
+    }
+  },
+  {
     "tipo": "INSTR_IMPRIMIR",
     "expresionCadena": {
       "operandoIzq": {
@@ -15,7 +147,8 @@
   },
   {
     "tipo": "INSTR_DECLARACION",
-    "identificador": "a"
+    "identificador": "a",
+    "tipo_dato": "NUMERO"
   },
   {
     "tipo": "INSTR_ASIGANCION",
@@ -27,7 +160,8 @@
   },
   {
     "tipo": "INSTR_DECLARACION",
-    "identificador": "c"
+    "identificador": "c",
+    "tipo_dato": "NUMERO"
   },
   {
     "tipo": "INSTR_ASIGANCION",
@@ -82,7 +216,8 @@
       },
       {
         "tipo": "INSTR_DECLARACION",
-        "identificador": "b"
+        "identificador": "b",
+        "tipo_dato": "NUMERO"
       },
       {
         "tipo": "INSTR_ASIGANCION",
@@ -191,7 +326,8 @@
   },
   {
     "tipo": "INSTR_DECLARACION",
-    "identificador": "b"
+    "identificador": "b",
+    "tipo_dato": "NUMERO"
   },
   {
     "tipo": "INSTR_ASIGANCION",
@@ -287,7 +423,8 @@
   },
   {
     "tipo": "INSTR_DECLARACION",
-    "identificador": "i"
+    "identificador": "i",
+    "tipo_dato": "NUMERO"
   },
   {
     "tipo": "INST_PARA",

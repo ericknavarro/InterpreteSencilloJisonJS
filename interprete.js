@@ -260,10 +260,10 @@ function procesarMientras(instruccion, tablaDeSimbolos) {
  * Función que se encarga de procesar la instrucción Para
  */
 function procesarPara(instruccion, tablaDeSimbolos) {
-    const valor = procesarExpresionNumerica(instruccion.valorVariable, tablaDeSimbolos);
+    const valor = procesarExpresionCadena(instruccion.valorVariable, tablaDeSimbolos); //aqui quiero que retorne: tipo y valor
     tablaDeSimbolos.actualizar(instruccion.variable, valor);
     for (var i = tablaDeSimbolos.obtener(instruccion.variable); procesarExpresionLogica(instruccion.expresionLogica, tablaDeSimbolos);
-        tablaDeSimbolos.actualizar(instruccion.variable, tablaDeSimbolos.obtener(instruccion.variable) + 1)) {
+        tablaDeSimbolos.actualizar(instruccion.variable, {valor: tablaDeSimbolos.obtener(instruccion.variable).valor + 1, tipo: TIPO_DATO.NUMERO})) {
         const tsPara = new TS(tablaDeSimbolos.simbolos);
         procesarBloque(instruccion.instrucciones, tsPara);
     }
