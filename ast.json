@@ -277,5 +277,52 @@
         ]
       }
     ]
+  },
+  {
+    "tipo": "INSTR_IMPRIMIR",
+    "expresionCadena": {
+      "tipo": "VAL_CADENA",
+      "valor": "----------------"
+    }
+  },
+  {
+    "tipo": "INSTR_DECLARACION",
+    "identificador": "i"
+  },
+  {
+    "tipo": "INST_PARA",
+    "expresionLogica": {
+      "operandoIzq": {
+        "tipo": "VAL_IDENTIFICADOR",
+        "valor": "i"
+      },
+      "operandoDer": {
+        "tipo": "VAL_NUMERO",
+        "valor": 10
+      },
+      "tipo": "OP_MENOR_QUE"
+    },
+    "instrucciones": [
+      {
+        "tipo": "INSTR_IMPRIMIR",
+        "expresionCadena": {
+          "operandoIzq": {
+            "tipo": "VAL_CADENA",
+            "valor": "Esto es un FOR, iteración: "
+          },
+          "operandoDer": {
+            "tipo": "VAL_IDENTIFICADOR",
+            "valor": "i"
+          },
+          "tipo": "OP_CONCATENACION"
+        }
+      }
+    ],
+    "aumento": "i",
+    "variable": "i",
+    "valorVariable": {
+      "tipo": "VAL_NUMERO",
+      "valor": 0
+    }
   }
 ]
