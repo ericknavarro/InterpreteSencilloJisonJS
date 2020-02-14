@@ -279,31 +279,50 @@
     ]
   },
   {
-    "tipo": "INSTR_DECLARACION",
-    "identificador": "var"
-  },
-  {
-    "tipo": "INSTR_ASIGANCION",
-    "identificador": "var",
-    "expresionNumerica": {
-      "tipo": "VAL_NUMERO",
-      "valor": 10
+    "tipo": "INSTR_IMPRIMIR",
+    "expresionCadena": {
+      "tipo": "VAL_CADENA",
+      "valor": "----------------"
     }
   },
   {
-    "tipo": "ASIGNACION_SIMPLIFICADA",
-    "operador": "OP_RESTA",
-    "expresionNumerica": {
-      "tipo": "VAL_NUMERO",
-      "valor": 15
-    },
-    "identificador": "var"
+    "tipo": "INSTR_DECLARACION",
+    "identificador": "i"
   },
   {
-    "tipo": "INSTR_IMPRIMIR",
-    "expresionCadena": {
-      "tipo": "VAL_IDENTIFICADOR",
-      "valor": "var"
+    "tipo": "INST_PARA",
+    "expresionLogica": {
+      "operandoIzq": {
+        "tipo": "VAL_IDENTIFICADOR",
+        "valor": "i"
+      },
+      "operandoDer": {
+        "tipo": "VAL_NUMERO",
+        "valor": 10
+      },
+      "tipo": "OP_MENOR_QUE"
+    },
+    "instrucciones": [
+      {
+        "tipo": "INSTR_IMPRIMIR",
+        "expresionCadena": {
+          "operandoIzq": {
+            "tipo": "VAL_CADENA",
+            "valor": "Esto es un FOR, iteración: "
+          },
+          "operandoDer": {
+            "tipo": "VAL_IDENTIFICADOR",
+            "valor": "i"
+          },
+          "tipo": "OP_CONCATENACION"
+        }
+      }
+    ],
+    "aumento": "i",
+    "variable": "i",
+    "valorVariable": {
+      "tipo": "VAL_NUMERO",
+      "valor": 0
     }
   }
 ]

@@ -63,7 +63,11 @@ If(a>10){
 	imprimir("a es menor o igual que 10.");
 }
 
-numero var;
-var =10;
-var -= 15;
-imprimir(var);
+imprimir("----------------");
+
+numero i;
+
+para(i = 0; i < 10 ; i++)
+{
+	imprimir("Esto es un FOR, iteración: " & i);
+}

@@ -5,7 +5,8 @@ var parser = require('./gramatica');
 const TIPO_INSTRUCCION = require('./instrucciones').TIPO_INSTRUCCION;
 const TIPO_OPERACION = require('./instrucciones').TIPO_OPERACION;
 const TIPO_VALOR = require('./instrucciones').TIPO_VALOR;
-const instruccionesAPI  = require('./instrucciones').instruccionesAPI;
+const instruccionesAPI = require('./instrucciones').instruccionesAPI;
+
 // Tabla de Simbolos
 const TIPO_DATO = require('./tabla_simbolos').TIPO_DATO;
 const TS = require('./tabla_simbolos').TS;
@@ -46,6 +47,9 @@ function procesarBloque(instrucciones, tablaDeSimbolos) {
         } else if (instruccion.tipo === TIPO_INSTRUCCION.MIENTRAS) {
             // Procesando Instrucción Mientras
             procesarMientras(instruccion, tablaDeSimbolos);
+        } else if (instruccion.tipo == TIPO_INSTRUCCION.PARA) {
+            // Procesando Instrucción Para
+            procesarPara(instruccion, tablaDeSimbolos);
         } else if (instruccion.tipo === TIPO_INSTRUCCION.DECLARACION) {
             // Procesando Instrucción Declaración
             procesarDeclaracion(instruccion, tablaDeSimbolos);
@@ -61,7 +65,7 @@ function procesarBloque(instrucciones, tablaDeSimbolos) {
         } else if (instruccion.tipo === TIPO_INSTRUCCION.ASIGNACION_SIMPLIFICADA) {
             // Procesando Instrucción Asignacion Simplificada
             procesarAsignacionSimplificada(instruccion, tablaDeSimbolos);
-        } else {
+        }  else {
             throw 'ERROR: tipo de instrucción no válido: ' + instruccion;
         }
     });
@@ -97,7 +101,11 @@ function procesarExpresionNumerica(expresion, tablaDeSimbolos) {
         if (expresion.tipo === TIPO_OPERACION.SUMA) return valorIzq + valorDer;
         if (expresion.tipo === TIPO_OPERACION.RESTA) return valorIzq - valorDer;
         if (expresion.tipo === TIPO_OPERACION.MULTIPLICACION) return valorIzq * valorDer;
-        if (expresion.tipo === TIPO_OPERACION.DIVISION) return valorIzq / valorDer;
+        if (expresion.tipo === TIPO_OPERACION.DIVISION){ 
+            if(valorDer === 0)
+                throw 'ERROR: la division entre 0 da como resultado: '+valorIzq/valorDer;
+            return valorIzq / valorDer;
+        }
     } else if (expresion.tipo === TIPO_VALOR.NUMERO) {
         // Es un valor numérico.
         // En este caso únicamente retornamos el valor obtenido por el parser directamente.
@@ -141,18 +149,50 @@ function procesarExpresionCadena(expresion, tablaDeSimbolos) {
 }
 
 /**
- * De acuerdo con nuestra gramática, aqui, expresión puede ser una operación lógica MAYOR QUE o MENOR QUE
+ * De acuerdo con nuestra gramática, aqui, expresión puede ser una operación relacional MAYOR QUE, MENOR QUE, MAYOR IGUAL QUE, MENOR IGUAL QUE, IGUAL QUE o NO IGUAL QUE
  * @param {*} expresion 
  * @param {TS} tablaDeSimbolos
  * Evaluamos cada caso para resolver a un valor tipo booleando de acuerdo al tipo de operación.
  */
-function procesarExpresionLogica(expresion, tablaDeSimbolos) {
+function procesarExpresionRelacional(expresion, tablaDeSimbolos) {
     // En este caso necesitamos procesar los operandos antes de realizar la comparación.
     const valorIzq = procesarExpresionNumerica(expresion.operandoIzq, tablaDeSimbolos);      // resolvemos el operando izquierdo.
     const valorDer = procesarExpresionNumerica(expresion.operandoDer, tablaDeSimbolos);      // resolvemos el operando derecho.
 
     if (expresion.tipo === TIPO_OPERACION.MAYOR_QUE) return valorIzq > valorDer;
     if (expresion.tipo === TIPO_OPERACION.MENOR_QUE) return valorIzq < valorDer;
+    if (expresion.tipo === TIPO_OPERACION.MAYOR_IGUAL) return valorIzq >= valorDer;
+    if (expresion.tipo === TIPO_OPERACION.MENOR_IGUAL) return valorIzq <= valorDer;
+    if (expresion.tipo === TIPO_OPERACION.DOBLE_IGUAL) return valorIzq === valorDer;
+    if (expresion.tipo === TIPO_OPERACION.NO_IGUAL) return valorIzq !== valorDer;
+}
+
+/**
+ * De acuerdo con nuestra gramática, aqui, expresión puede ser una operación lógica AND, OR o NOT
+ * @param {*} expresion 
+ * @param {TS} tablaDeSimbolos
+ * Evaluamos cada caso para resolver a un valor tipo booleando de acuerdo al tipo de operación.
+ */
+function procesarExpresionLogica(expresion, tablaDeSimbolos) {
+
+    if (expresion.tipo === TIPO_OPERACION.AND) { 
+        // En este caso necesitamos procesar los operandos para &&.
+        const valorIzq = procesarExpresionRelacional(expresion.operandoIzq, tablaDeSimbolos);      // resolvemos el operando izquierdo.
+        const valorDer = procesarExpresionRelacional(expresion.operandoDer, tablaDeSimbolos);      // resolvemos el operando derecho.
+        return valorIzq && valorDer;
+    }
+    if (expresion.tipo === TIPO_OPERACION.OR) { 
+        // En este caso necesitamos procesar los operandos para ||.
+        const valorIzq = procesarExpresionRelacional(expresion.operandoIzq, tablaDeSimbolos);      // resolvemos el operando izquierdo.
+        const valorDer = procesarExpresionRelacional(expresion.operandoDer, tablaDeSimbolos);      // resolvemos el operando derecho.
+        return valorIzq || valorDer;
+    }
+    if (expresion.tipo === TIPO_OPERACION.NOT) { 
+        // En este caso necesitamos procesar solamente un operando para !.
+        const valor = procesarExpresionRelacional(expresion.operandoIzq, tablaDeSimbolos);      // resolvemos el operando izquierdo.
+        return !valor;
+    }
+    return procesarExpresionRelacional(expresion, tablaDeSimbolos);
 }
 
 /**
@@ -191,6 +231,19 @@ function procesarMientras(instruccion, tablaDeSimbolos) {
     while (procesarExpresionLogica(instruccion.expresionLogica, tablaDeSimbolos)) {
         const tsMientras = new TS(tablaDeSimbolos.simbolos);
         procesarBloque(instruccion.instrucciones, tsMientras);
+    }
+}
+
+/**
+ * Función que se encarga de procesar la instrucción Para
+ */
+function procesarPara(instruccion, tablaDeSimbolos) {
+    const valor = procesarExpresionNumerica(instruccion.valorVariable, tablaDeSimbolos);
+    tablaDeSimbolos.actualizar(instruccion.variable, valor);
+    for (var i = tablaDeSimbolos.obtener(instruccion.variable); procesarExpresionLogica(instruccion.expresionLogica, tablaDeSimbolos);
+        tablaDeSimbolos.actualizar(instruccion.variable, tablaDeSimbolos.obtener(instruccion.variable) + 1)) {
+        const tsPara = new TS(tablaDeSimbolos.simbolos);
+        procesarBloque(instruccion.instrucciones, tsPara);
     }
 }
 
@@ -237,3 +290,4 @@ function procesarAsignacionSimplificada(instruccion, tablaDeSimbolos) {
 
     tablaDeSimbolos.actualizar(instruccion.identificador, valor);
  }
+

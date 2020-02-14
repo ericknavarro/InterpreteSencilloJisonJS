@@ -15,6 +15,16 @@ const TIPO_OPERACION = {
 	NEGATIVO:       'OP_NEGATIVO',
 	MAYOR_QUE:      'OP_MAYOR_QUE',
 	MENOR_QUE:      'OP_MENOR_QUE',
+
+	MAYOR_IGUAL: 	'OP_MAYOR_IGUAL',
+	MENOR_IGUAL:    'OP_MENOR_IGUAL',
+	DOBLE_IGUAL:    'OP_DOBLE_IGUAL',
+	NO_IGUAL:    	'OP_NO_IGUAL',
+
+	AND:  			'OP_AND',
+	OR: 			'OP_OR',
+	NOT:   			'OP_NOT',  	
+
 	CONCATENACION:  'OP_CONCATENACION'
 };
 
@@ -26,6 +36,7 @@ const TIPO_INSTRUCCION = {
 	ASIGNACION:		'INSTR_ASIGANCION',
 	IF:				'INSTR_IF',
 	IF_ELSE:		'INSTR_ELSE',
+	PARA: 			'INST_PARA',
 	ASIGNACION_SIMPLIFICADA: 'ASIGNACION_SIMPLIFICADA'
 }
 
@@ -107,6 +118,24 @@ const instruccionesAPI = {
 	},
 
 	/**
+	 * Crea un objeto tipo instrucción para la sentencia Para.
+	 * @param {*} expresionLogica
+	 * @param {*} instrucciones
+	 * @param {*} aumento
+	 * @param {*} decremento
+	 */
+	nuevoPara: function (variable, valorVariable, expresionLogica, aumento, instrucciones) {
+		return {
+			tipo: TIPO_INSTRUCCION.PARA,
+			expresionLogica: expresionLogica,
+			instrucciones: instrucciones,
+			aumento: aumento,
+			variable: variable,
+			valorVariable: valorVariable
+		}
+	},
+
+	/**
 	 * Crea un objeto tipo Instrucción para la sentencia Declaración.
 	 * @param {*} identificador 
 	 */
@@ -161,24 +190,24 @@ const instruccionesAPI = {
 	* Crea un objeto tipo Operador (+ , - , / , *) 
 	* @param {*} operador 
 	*/
-   nuevoOperador: function(operador){
-	   return operador 
-   },
-
-   /**
-	* Crea un objeto tipo Instrucción para la sentencia Asignacion con Operador
-	* @param {*} identificador 
-	* @param {*} operador 
-	* @param {*} expresionCadena 
-	*/
-   nuevoAsignacionSimplificada: function(identificador, operador , expresionNumerica){
-	   return{
-		   tipo: TIPO_INSTRUCCION.ASIGNACION_SIMPLIFICADA,
-		   operador : operador,
-		   expresionNumerica: expresionNumerica,
-		   identificador : identificador
-	   } 
-   }
+	nuevoOperador: function(operador){
+		return operador 
+	},
+ 
+	/**
+	 * Crea un objeto tipo Instrucción para la sentencia Asignacion con Operador
+	 * @param {*} identificador 
+	 * @param {*} operador 
+	 * @param {*} expresionCadena 
+	 */
+	nuevoAsignacionSimplificada: function(identificador, operador , expresionNumerica){
+		return{
+			tipo: TIPO_INSTRUCCION.ASIGNACION_SIMPLIFICADA,
+			operador : operador,
+			expresionNumerica: expresionNumerica,
+			identificador : identificador
+		} 
+	}
 }
 
 // Exportamos nuestras constantes y nuestra API
