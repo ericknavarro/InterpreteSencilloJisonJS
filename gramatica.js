@@ -811,7 +811,9 @@ case 15:return 26;
 break;
 case 16:return 27;
 break;
-case 17:return 28;
+case 17:return 26;
+break;
+case 18:return 29;
 break;
 case 18:return 43
 break;

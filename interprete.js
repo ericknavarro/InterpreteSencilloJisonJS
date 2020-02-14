@@ -290,4 +290,3 @@ function procesarAsignacionSimplificada(instruccion, tablaDeSimbolos) {
 
     tablaDeSimbolos.actualizar(instruccion.identificador, valor);
  }
-

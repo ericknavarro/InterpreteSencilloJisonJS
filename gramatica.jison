@@ -31,7 +31,6 @@
 "-="				return 'O_MENOS';
 "*="				return 'O_POR';
 "/="				return 'O_DIVIDIDO';
-
 "&&"				return 'AND'
 "||"				return 'OR';
 
