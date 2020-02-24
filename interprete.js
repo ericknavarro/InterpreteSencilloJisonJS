@@ -61,6 +61,12 @@ function procesarBloque(instrucciones, tablaDeSimbolos) {
         } else if (instruccion.tipo === TIPO_INSTRUCCION.IF_ELSE) {
             // Procesando Instrucción If Else
             procesarIfElse(instruccion, tablaDeSimbolos);
+        } else if (instruccion.tipo === TIPO_INSTRUCCION.SWITCH) {
+            // Procesando Instrucción Switch  
+            procesarSwitch(instruccion, tablaDeSimbolos);
+        } else if (instruccion.tipo === TIPO_INSTRUCCION.BREAK) {
+            // Procesando Instrucción Break  
+            procesarBreak();
         } else {
             throw 'ERROR: tipo de instrucción no válido: ' + instruccion;
         }
@@ -270,4 +276,36 @@ function procesarIfElse(instruccion, tablaDeSimbolos) {
         const tsElse = new TS(tablaDeSimbolos.simbolos);
         procesarBloque(instruccion.instruccionesIfFalso, tsElse);
     }
+}
+
+/**
+ * Función que se encarga de procesar la instrucción Switch
+ * @param {*} instruccion 
+ * @param {*} tablaDeSimbolos 
+ */
+function procesarSwitch(instruccion, tablaDeSimbolos) {
+    var evaluar = true;
+    const valorExpresion = procesarExpresionNumerica(instruccion.expresionNumerica, tablaDeSimbolos);
+    const tsSwitch = new TS(tablaDeSimbolos.simbolos);
+
+    instruccion.casos.forEach(caso => {
+        if (caso.tipo == TIPO_INSTRUCCION.SWITCH_OP){
+            const valorExpCase= procesarExpresionNumerica(caso.expresionNumerica, tsSwitch);
+            if (valorExpCase == valorExpresion){
+                procesarBloque(caso.instrucciones, tsSwitch);
+                evaluar = false;
+            }
+        }
+        else{
+            if (evaluar)
+                procesarBloque(caso.instrucciones, tsSwitch);
+        }
+    });
+}
+
+/**
+ * Función que se encarga de procesar la instrucción Break
+ */
+function procesarBreak() {
+   console.log("hay un break...");
 }

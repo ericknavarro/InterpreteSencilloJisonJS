@@ -36,7 +36,11 @@ const TIPO_INSTRUCCION = {
 	ASIGNACION:		'INSTR_ASIGANCION',
 	IF:				'INSTR_IF',
 	IF_ELSE:		'INSTR_ELSE',
-	PARA: 			'INST_PARA'
+	PARA: 			'INST_PARA',
+	SWITCH:			'SWITCH',
+	SWITCH_OP:		'SWITCH_OP',
+	SWITCH_DEF:		'SWITCH_DEF',
+	BREAK:			'BREAK'
 }
 
 /**
@@ -183,6 +187,62 @@ const instruccionesAPI = {
 			expresionLogica: expresionLogica,
 			instruccionesIfVerdadero: instruccionesIfVerdadero,
 			instruccionesIfFalso: instruccionesIfFalso
+		}
+	},
+
+	/**
+	 * Crea un objeto tipo Instrucción para la sentencia Switch.
+	 * @param {*} expresionNumerica 
+	 * @param {*} instrucciones 
+	 */
+	nuevoSwitch: function(expresionNumerica, casos) {
+		return {
+			tipo: TIPO_INSTRUCCION.SWITCH,
+			expresionNumerica: expresionNumerica,
+			casos: casos
+		}
+	},
+
+	/**
+	 * Crea un objeto tipo Instrucción para la sentencia Switch.
+	 * @param {*} expresionNumerica 
+	 * @param {*} instrucciones 
+	 */
+	nuevoSwitchList: function (caso) {
+		var casos = []; 
+		casos.push(caso);
+		return casos;
+	},
+
+	/**
+	 * Crea un objeto tipo Instrucción para una opcion de la sentencia switch.
+	 * @param {*} expresionNumerica 
+	 * @param {*} instrucciones 
+	 */
+	nuevoSwitchOpcion: function(expresionNumerica, instrucciones) {
+		return {
+			tipo: TIPO_INSTRUCCION.SWITCH_OP,
+			expresionNumerica: expresionNumerica,
+			instrucciones: instrucciones
+		}
+	},
+	/**
+	 * Crea un objeto tipo Instrucción para la opcion por defecto de la sentencia switch.
+	 * @param {*} expresionNumerica 
+	 * @param {*} instrucciones 
+	 */
+	nuevoSwitchDef: function(instrucciones) {
+		return {
+			tipo: TIPO_INSTRUCCION.SWITCH_DEF,
+			instrucciones: instrucciones
+		}
+	},
+	/**
+	 * Crea un objeto tipo Instrucción para la sentencia break.
+	 */
+	nuevoBreak: function() {
+		return {
+			tipo: TIPO_INSTRUCCION.BREAK
 		}
 	}
 }
