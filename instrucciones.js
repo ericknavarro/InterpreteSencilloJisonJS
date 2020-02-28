@@ -40,7 +40,8 @@ const TIPO_INSTRUCCION = {
 	SWITCH:			'SWITCH',
 	SWITCH_OP:		'SWITCH_OP',
 	SWITCH_DEF:		'SWITCH_DEF',
-	BREAK:			'BREAK'
+	BREAK:			'BREAK',
+	ASIGNACION_SIMPLIFICADA: 'ASIGNACION_SIMPLIFICADA'
 }
 
 /**
@@ -189,7 +190,7 @@ const instruccionesAPI = {
 			instruccionesIfFalso: instruccionesIfFalso
 		}
 	},
-
+  
 	/**
 	 * Crea un objeto tipo Instrucción para la sentencia Switch.
 	 * @param {*} expresionNumerica 
@@ -244,9 +245,31 @@ const instruccionesAPI = {
 		return {
 			tipo: TIPO_INSTRUCCION.BREAK
 		}
+  },
+    
+	/**
+	* Crea un objeto tipo Operador (+ , - , / , *) 
+	* @param {*} operador 
+	*/
+	nuevoOperador: function(operador){
+		return operador 
+	},
+ 
+	/**
+	 * Crea un objeto tipo Instrucción para la sentencia Asignacion con Operador
+	 * @param {*} identificador 
+	 * @param {*} operador 
+	 * @param {*} expresionCadena 
+	 */
+	nuevoAsignacionSimplificada: function(identificador, operador , expresionNumerica){
+		return{
+			tipo: TIPO_INSTRUCCION.ASIGNACION_SIMPLIFICADA,
+			operador : operador,
+			expresionNumerica: expresionNumerica,
+			identificador : identificador
+		} 
 	}
 }
-
 // Exportamos nuestras constantes y nuestra API
 
 module.exports.TIPO_OPERACION = TIPO_OPERACION;

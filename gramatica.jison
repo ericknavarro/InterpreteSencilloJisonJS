@@ -31,6 +31,10 @@
 "("					return 'PARIZQ';
 ")"					return 'PARDER';
 
+"+="				return 'O_MAS';
+"-="				return 'O_MENOS';
+"*="				return 'O_POR';
+"/="				return 'O_DIVIDIDO';
 "&&"				return 'AND'
 "||"				return 'OR';
 
@@ -104,10 +108,13 @@ instruccion
 														{ $$ = instruccionesAPI.nuevoIf($3, $6); }
 	| RIF PARIZQ expresion_logica PARDER LLAVIZQ instrucciones LLAVDER RELSE LLAVIZQ instrucciones LLAVDER
 														{ $$ = instruccionesAPI.nuevoIf($3, $6, $10); }
+
 	| RSWITCH PARIZQ expresion_numerica PARDER LLAVIZQ casos LLAVDER
 		{ $$ = instruccionesAPI.nuevoSwitch($3,$6);}
 	| RBREAK PTCOMA
 		{ $$ = instruccionesAPI.nuevoBreak(); }
+	| IDENTIFICADOR operadores expresion_numerica PTCOMA	
+	                                                    { $$ = instruccionesAPI.nuevoAsignacionSimplificada($1, $2, $3); }
 	| error { console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column); }
 ;
 
@@ -126,6 +133,12 @@ caso_evaluar : RCASE expresion_numerica DOSPTS instrucciones
     { $$ = instruccionesAPI.nuevoSwitchDef($3); }
 ;
 
+operadores
+    : O_MAS      { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.SUMA); }
+	| O_MENOS    { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.RESTA); }
+    | O_POR      { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.MULTIPLICACION); }
+	| O_DIVIDIDO { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.DIVISION); }
+;
 
 expresion_numerica
 	: MENOS expresion_numerica %prec UMENOS				{ $$ = instruccionesAPI.nuevoOperacionUnaria($2, TIPO_OPERACION.NEGATIVO); }

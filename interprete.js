@@ -5,6 +5,7 @@ var parser = require('./gramatica');
 const TIPO_INSTRUCCION = require('./instrucciones').TIPO_INSTRUCCION;
 const TIPO_OPERACION = require('./instrucciones').TIPO_OPERACION;
 const TIPO_VALOR = require('./instrucciones').TIPO_VALOR;
+const instruccionesAPI = require('./instrucciones').instruccionesAPI;
 
 // Tabla de Simbolos
 const TIPO_DATO = require('./tabla_simbolos').TIPO_DATO;
@@ -67,7 +68,10 @@ function procesarBloque(instrucciones, tablaDeSimbolos) {
         } else if (instruccion.tipo === TIPO_INSTRUCCION.BREAK) {
             // Procesando Instrucción Break  
             procesarBreak();
-        } else {
+        } else if (instruccion.tipo === TIPO_INSTRUCCION.ASIGNACION_SIMPLIFICADA) {
+            // Procesando Instrucción Asignacion Simplificada
+            procesarAsignacionSimplificada(instruccion, tablaDeSimbolos);
+        }  else {
             throw 'ERROR: tipo de instrucción no válido: ' + instruccion;
         }
     });
@@ -277,7 +281,7 @@ function procesarIfElse(instruccion, tablaDeSimbolos) {
         procesarBloque(instruccion.instruccionesIfFalso, tsElse);
     }
 }
-
+  
 /**
  * Función que se encarga de procesar la instrucción Switch
  * @param {*} instruccion 
@@ -309,3 +313,19 @@ function procesarSwitch(instruccion, tablaDeSimbolos) {
 function procesarBreak() {
    console.log("hay un break...");
 }
+  
+/**
+ * Función que se encarga de procesar la instrucción Asignación Simplificada
+ Se crea un objeto tipo nuevaOperacionBinaria (expresion):
+  opIzq      -> Valor almacenado del identificador
+  opDer      -> Valor de entrada
+  TIPO_VALOR -> Se define por el tipo de operador (+,-,*,/)
+ * @param {*} instruccion
+ * @param {*} tablaDeSimbolos 
+ */
+function procesarAsignacionSimplificada(instruccion, tablaDeSimbolos) {
+    const expresion =instruccionesAPI.nuevoOperacionBinaria(instruccionesAPI.nuevoValor(instruccion.identificador, TIPO_VALOR.IDENTIFICADOR),instruccion.expresionNumerica, instruccion.operador);
+    const valor = procesarExpresionNumerica(expresion, tablaDeSimbolos);
+
+    tablaDeSimbolos.actualizar(instruccion.identificador, valor);
+ }
