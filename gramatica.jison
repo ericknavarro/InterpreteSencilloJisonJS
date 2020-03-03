@@ -111,8 +111,6 @@ instruccion
 
 	| RSWITCH PARIZQ expresion_numerica PARDER LLAVIZQ casos LLAVDER
 		{ $$ = instruccionesAPI.nuevoSwitch($3,$6);}
-	| RBREAK PTCOMA
-		{ $$ = instruccionesAPI.nuevoBreak(); }
 	| IDENTIFICADOR operadores expresion_numerica PTCOMA	
 	                                                    { $$ = instruccionesAPI.nuevoAsignacionSimplificada($1, $2, $3); }
 	| error { console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column); }
@@ -124,13 +122,13 @@ casos : casos caso_evaluar
 	  $$ = $1;
     }
   | caso_evaluar
-  	{ $$ = instruccionesAPI.nuevoSwitchList($1);}
+  	{ $$ = instruccionesAPI.nuevoListaCasos($1);}
 ;
 
 caso_evaluar : RCASE expresion_numerica DOSPTS instrucciones
-    { $$ = instruccionesAPI.nuevoSwitchOpcion($2,$4); }
+    { $$ = instruccionesAPI.nuevoCaso($2,$4); }
   | RDEFAULT DOSPTS instrucciones
-    { $$ = instruccionesAPI.nuevoSwitchDef($3); }
+    { $$ = instruccionesAPI.nuevoCasoDef($3); }
 ;
 
 operadores

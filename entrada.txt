@@ -86,34 +86,14 @@ switch(a){
         imprimir("Oceano ");
       case 1: 
         imprimir("atardecer");
-        break;
-        imprimir("No debio haber impreso esto");
       case 2: 
         imprimir("llena");
-        break;
-        imprimir("No debio haber impreso esto");
       case 3: 
         imprimir("noche");
-        break;
-        imprimir("No debio haber impreso esto");
       case 4:
         imprimir("Dia");
-        break;
-        imprimir("No debio haber impreso esto");
       case 5: 
         imprimir("Azul");
-        break;
-        imprimir("No debio haber impreso esto");
-      case 1: 
-        imprimir("ERROR!!!!!");
-      case 2: 
-        imprimir("ERROR!!!!!");
-      case 3:
-        imprimir("ERROR!!!!!");
-      case 4: 
-        imprimir("ERROR!!!!!");
-      case 5: 
-        imprimir("ERROR!!!!!");
       default:
-        imprimir("No debio haber entrado al defecto");
+        imprimir("Esta es la acción por defecto.");
     }

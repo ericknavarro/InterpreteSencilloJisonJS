@@ -6,6 +6,7 @@ const TIPO_INSTRUCCION = require('./instrucciones').TIPO_INSTRUCCION;
 const TIPO_OPERACION = require('./instrucciones').TIPO_OPERACION;
 const TIPO_VALOR = require('./instrucciones').TIPO_VALOR;
 const instruccionesAPI = require('./instrucciones').instruccionesAPI;
+const TIPO_OPCION_SWITCH = require('./instrucciones').TIPO_OPCION_SWITCH;
 
 // Tabla de Simbolos
 const TIPO_DATO = require('./tabla_simbolos').TIPO_DATO;
@@ -293,7 +294,7 @@ function procesarSwitch(instruccion, tablaDeSimbolos) {
     const tsSwitch = new TS(tablaDeSimbolos.simbolos);
 
     instruccion.casos.forEach(caso => {
-        if (caso.tipo == TIPO_INSTRUCCION.SWITCH_OP){
+        if (caso.tipo == TIPO_OPCION_SWITCH.CASO){
             const valorExpCase= procesarExpresionNumerica(caso.expresionNumerica, tsSwitch);
             if (valorExpCase == valorExpresion){
                 procesarBloque(caso.instrucciones, tsSwitch);
@@ -307,12 +308,6 @@ function procesarSwitch(instruccion, tablaDeSimbolos) {
     });
 }
 
-/**
- * Función que se encarga de procesar la instrucción Break
- */
-function procesarBreak() {
-   console.log("hay un break...");
-}
   
 /**
  * Función que se encarga de procesar la instrucción Asignación Simplificada
