@@ -101,3 +101,4 @@ class TS {
 
 module.exports.TIPO_DATO = TIPO_DATO;
 module.exports.TS = TS;
+
