@@ -20,8 +20,12 @@
 "if"				return 'RIF';
 "else"				return 'RELSE';
 "para"				return 'RPARA';
+"switch"			return 'RSWITCH';
+"case"				return 'RCASE';
+"default"			return 'RDEFAULT';
+"break"				return 'RBREAK';
 
-
+":"					return 'DOSPTS';
 ";"					return 'PTCOMA';
 "{"					return 'LLAVIZQ';
 "}"					return 'LLAVDER';
@@ -108,9 +112,27 @@ instruccion
 														{ $$ = instruccionesAPI.nuevoIf($3, $6); }
 	| RIF PARIZQ expresion_logica PARDER LLAVIZQ instrucciones LLAVDER RELSE LLAVIZQ instrucciones LLAVDER
 														{ $$ = instruccionesAPI.nuevoIf($3, $6, $10); }
+
+	| RSWITCH PARIZQ expresion_numerica PARDER LLAVIZQ casos LLAVDER
+		{ $$ = instruccionesAPI.nuevoSwitch($3,$6);}
 	| IDENTIFICADOR operadores expresion_numerica PTCOMA	
 	                                                    { $$ = instruccionesAPI.nuevoAsignacionSimplificada($1, $2, $3); }
 	| error { console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column); }
+;
+
+casos : casos caso_evaluar
+    {
+      $1.push($2);
+	  $$ = $1;
+    }
+  | caso_evaluar
+  	{ $$ = instruccionesAPI.nuevoListaCasos($1);}
+;
+
+caso_evaluar : RCASE expresion_numerica DOSPTS instrucciones
+    { $$ = instruccionesAPI.nuevoCaso($2,$4); }
+  | RDEFAULT DOSPTS instrucciones
+    { $$ = instruccionesAPI.nuevoCasoDef($3); }
 ;
 
 operadores

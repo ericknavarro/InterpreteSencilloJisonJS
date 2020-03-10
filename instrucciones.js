@@ -36,9 +36,18 @@ const TIPO_INSTRUCCION = {
 	ASIGNACION:		'INSTR_ASIGANCION',
 	IF:				'INSTR_IF',
 	IF_ELSE:		'INSTR_ELSE',
-	ASIGNACION_SIMPLIFICADA: 'ASIGNACION_SIMPLIFICADA',
-	PARA: 			'INST_PARA'
+	PARA: 			'INST_PARA',
+	SWITCH:			'SWITCH',
+	SWITCH_OP:		'SWITCH_OP',
+	SWITCH_DEF:		'SWITCH_DEF',
+	ASIGNACION_SIMPLIFICADA: 'ASIGNACION_SIMPLIFICADA'
 }
+
+// Constantes para los tipos de OPCION_SWITCH validas en la gramática
+const TIPO_OPCION_SWITCH = { 
+	CASO: 			'CASO',
+	DEFECTO: 		'DEFECTO'
+} 
 
 /**
  * Esta función se encarga de crear objetos tipo Operación.
@@ -187,6 +196,53 @@ const instruccionesAPI = {
 			instruccionesIfFalso: instruccionesIfFalso
 		}
 	},
+  
+	/**
+	 * Crea un objeto tipo Instrucción para la sentencia Switch.
+	 * @param {*} expresionNumerica 
+	 * @param {*} instrucciones 
+	 */
+	nuevoSwitch: function(expresionNumerica, casos) {
+		return {
+			tipo: TIPO_INSTRUCCION.SWITCH,
+			expresionNumerica: expresionNumerica,
+			casos: casos
+		}
+	},
+
+	/**
+	 * Crea una lista de casos para la sentencia Switch.
+	 * @param {*} caso 
+	 */
+	nuevoListaCasos: function (caso) {
+		var casos = []; 
+		casos.push(caso);
+		return casos;
+	},
+
+	/**
+	 * Crea un objeto tipo OPCION_SWITCH para una CASO de la sentencia switch.
+	 * @param {*} expresionNumerica 
+	 * @param {*} instrucciones 
+	 */
+	nuevoCaso: function(expresionNumerica, instrucciones) {
+		return {
+			tipo: TIPO_OPCION_SWITCH.CASO,
+			expresionNumerica: expresionNumerica,
+			instrucciones: instrucciones
+		}
+	},
+	/**
+	 * Crea un objeto tipo OPCION_SWITCH para un CASO DEFECTO de la sentencia switch.
+	 * @param {*} instrucciones 
+	 */
+	nuevoCasoDef: function(instrucciones) {
+		return {
+			tipo: TIPO_OPCION_SWITCH.DEFECTO,
+			instrucciones: instrucciones
+		}
+	},
+    
 	/**
 	* Crea un objeto tipo Operador (+ , - , / , *) 
 	* @param {*} operador 
@@ -210,10 +266,10 @@ const instruccionesAPI = {
 		} 
 	}
 }
-
 // Exportamos nuestras constantes y nuestra API
 
 module.exports.TIPO_OPERACION = TIPO_OPERACION;
 module.exports.TIPO_INSTRUCCION = TIPO_INSTRUCCION;
 module.exports.TIPO_VALOR = TIPO_VALOR;
 module.exports.instruccionesAPI = instruccionesAPI;
+module.exports.TIPO_OPCION_SWITCH = TIPO_OPCION_SWITCH;

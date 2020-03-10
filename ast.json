@@ -461,5 +461,194 @@
       "tipo": "VAL_NUMERO",
       "valor": 0
     }
+  },
+  {
+    "tipo": "INSTR_ASIGANCION",
+    "identificador": "a",
+    "expresionNumerica": {
+      "tipo": "VAL_NUMERO",
+      "valor": 21
+    }
+  },
+  {
+    "tipo": "SWITCH",
+    "expresionNumerica": {
+      "tipo": "VAL_IDENTIFICADOR",
+      "valor": "a"
+    },
+    "casos": [
+      {
+        "tipo": "CASO",
+        "expresionNumerica": {
+          "tipo": "VAL_NUMERO",
+          "valor": 1
+        },
+        "instrucciones": [
+          {
+            "tipo": "INSTR_IMPRIMIR",
+            "expresionCadena": {
+              "tipo": "VAL_CADENA",
+              "valor": "Playa al "
+            }
+          }
+        ]
+      },
+      {
+        "tipo": "CASO",
+        "expresionNumerica": {
+          "tipo": "VAL_NUMERO",
+          "valor": 2
+        },
+        "instrucciones": [
+          {
+            "tipo": "INSTR_IMPRIMIR",
+            "expresionCadena": {
+              "tipo": "VAL_CADENA",
+              "valor": "Luna "
+            }
+          }
+        ]
+      },
+      {
+        "tipo": "CASO",
+        "expresionNumerica": {
+          "tipo": "VAL_NUMERO",
+          "valor": 3
+        },
+        "instrucciones": [
+          {
+            "tipo": "INSTR_IMPRIMIR",
+            "expresionCadena": {
+              "tipo": "VAL_CADENA",
+              "valor": "Selva de "
+            }
+          }
+        ]
+      },
+      {
+        "tipo": "CASO",
+        "expresionNumerica": {
+          "tipo": "VAL_NUMERO",
+          "valor": 4
+        },
+        "instrucciones": [
+          {
+            "tipo": "INSTR_IMPRIMIR",
+            "expresionCadena": {
+              "tipo": "VAL_CADENA",
+              "valor": "Desierto de "
+            }
+          }
+        ]
+      },
+      {
+        "tipo": "CASO",
+        "expresionNumerica": {
+          "tipo": "VAL_NUMERO",
+          "valor": 5
+        },
+        "instrucciones": [
+          {
+            "tipo": "INSTR_IMPRIMIR",
+            "expresionCadena": {
+              "tipo": "VAL_CADENA",
+              "valor": "Oceano "
+            }
+          }
+        ]
+      },
+      {
+        "tipo": "CASO",
+        "expresionNumerica": {
+          "tipo": "VAL_NUMERO",
+          "valor": 1
+        },
+        "instrucciones": [
+          {
+            "tipo": "INSTR_IMPRIMIR",
+            "expresionCadena": {
+              "tipo": "VAL_CADENA",
+              "valor": "atardecer"
+            }
+          }
+        ]
+      },
+      {
+        "tipo": "CASO",
+        "expresionNumerica": {
+          "tipo": "VAL_NUMERO",
+          "valor": 2
+        },
+        "instrucciones": [
+          {
+            "tipo": "INSTR_IMPRIMIR",
+            "expresionCadena": {
+              "tipo": "VAL_CADENA",
+              "valor": "llena"
+            }
+          }
+        ]
+      },
+      {
+        "tipo": "CASO",
+        "expresionNumerica": {
+          "tipo": "VAL_NUMERO",
+          "valor": 3
+        },
+        "instrucciones": [
+          {
+            "tipo": "INSTR_IMPRIMIR",
+            "expresionCadena": {
+              "tipo": "VAL_CADENA",
+              "valor": "noche"
+            }
+          }
+        ]
+      },
+      {
+        "tipo": "CASO",
+        "expresionNumerica": {
+          "tipo": "VAL_NUMERO",
+          "valor": 4
+        },
+        "instrucciones": [
+          {
+            "tipo": "INSTR_IMPRIMIR",
+            "expresionCadena": {
+              "tipo": "VAL_CADENA",
+              "valor": "Dia"
+            }
+          }
+        ]
+      },
+      {
+        "tipo": "CASO",
+        "expresionNumerica": {
+          "tipo": "VAL_NUMERO",
+          "valor": 5
+        },
+        "instrucciones": [
+          {
+            "tipo": "INSTR_IMPRIMIR",
+            "expresionCadena": {
+              "tipo": "VAL_CADENA",
+              "valor": "Azul"
+            }
+          }
+        ]
+      },
+      {
+        "tipo": "DEFECTO",
+        "instrucciones": [
+          {
+            "tipo": "INSTR_IMPRIMIR",
+            "expresionCadena": {
+              "tipo": "VAL_CADENA",
+              "valor": "Esta es la accion por defecto."
+            }
+          }
+        ]
+      }
+    ]
   }
 ]

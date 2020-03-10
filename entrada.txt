@@ -90,3 +90,29 @@ para(i = 0; i < 10 ; i++)
 {
 	imprimir("Esto es un FOR, iteración: " & i);
 }
+
+a=1;
+switch(a){
+      case 1: 
+        imprimir("Playa al ");
+      case 2: 
+        imprimir("Luna ");
+      case 3: 
+        imprimir("Selva de ");
+      case 4: 
+        imprimir("Desierto de ");
+      case 5: 
+        imprimir("Oceano ");
+      case 1: 
+        imprimir("atardecer");
+      case 2: 
+        imprimir("llena");
+      case 3: 
+        imprimir("noche");
+      case 4:
+        imprimir("Dia");
+      case 5: 
+        imprimir("Azul");
+      default:
+        imprimir("Esta es la acción por defecto.");
+    }
