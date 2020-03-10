@@ -66,9 +66,6 @@ function procesarBloque(instrucciones, tablaDeSimbolos) {
         } else if (instruccion.tipo === TIPO_INSTRUCCION.SWITCH) {
             // Procesando Instrucción Switch  
             procesarSwitch(instruccion, tablaDeSimbolos);
-        } else if (instruccion.tipo === TIPO_INSTRUCCION.BREAK) {
-            // Procesando Instrucción Break  
-            procesarBreak();
         } else if (instruccion.tipo === TIPO_INSTRUCCION.ASIGNACION_SIMPLIFICADA) {
             // Procesando Instrucción Asignacion Simplificada
             procesarAsignacionSimplificada(instruccion, tablaDeSimbolos);
