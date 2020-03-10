@@ -148,10 +148,11 @@ const instruccionesAPI = {
 	 * Crea un objeto tipo Instrucción para la sentencia Declaración.
 	 * @param {*} identificador 
 	 */
-	nuevoDeclaracion: function(identificador) {
+	nuevoDeclaracion: function(identificador, tipo) {
 		return {
 			tipo: TIPO_INSTRUCCION.DECLARACION,
-			identificador: identificador
+			identificador: identificador,
+			tipo_dato: tipo
 		}
 	},
 

@@ -15,6 +15,7 @@
 
 "imprimir"			return 'RIMPRIMIR';
 "numero"			return 'RNUMERO';
+"string"			return 'RSTRING';
 "mientras"			return 'RMIENTRAS';
 "if"				return 'RIF';
 "else"				return 'RELSE';
@@ -70,6 +71,7 @@
 %{
 	const TIPO_OPERACION	= require('./instrucciones').TIPO_OPERACION;
 	const TIPO_VALOR 		= require('./instrucciones').TIPO_VALOR;
+	const TIPO_DATO			= require('./tabla_simbolos').TIPO_DATO; //para jalar el tipo de dato
 	const instruccionesAPI	= require('./instrucciones').instruccionesAPI;
 %}
 
@@ -102,8 +104,10 @@ instruccion
 														{ $$ = instruccionesAPI.nuevoMientras($3, $6); }
 	| RPARA PARIZQ IDENTIFICADOR IGUAL expresion_numerica PTCOMA expresion_logica PTCOMA IDENTIFICADOR MAS MAS PARDER LLAVIZQ instrucciones LLAVDER
 														{ $$ = instruccionesAPI.nuevoPara($3,$5,$7,$9,$14) }
-	| RNUMERO IDENTIFICADOR PTCOMA						{ $$ = instruccionesAPI.nuevoDeclaracion($2); }
-	| IDENTIFICADOR IGUAL expresion_numerica PTCOMA		{ $$ = instruccionesAPI.nuevoAsignacion($1, $3); }
+	| RNUMERO IDENTIFICADOR PTCOMA						{ $$ = instruccionesAPI.nuevoDeclaracion($2, TIPO_DATO.NUMERO); }
+	| RSTRING IDENTIFICADOR PTCOMA						{ $$ = instruccionesAPI.nuevoDeclaracion($2, TIPO_DATO.STRING); }
+	| IDENTIFICADOR IGUAL expresion_cadena PTCOMA		{ $$ = instruccionesAPI.nuevoAsignacion($1, $3); } //esto soporta expresiones_cadena y expresion_numerica
+
 	| RIF PARIZQ expresion_logica PARDER LLAVIZQ instrucciones LLAVDER
 														{ $$ = instruccionesAPI.nuevoIf($3, $6); }
 	| RIF PARIZQ expresion_logica PARDER LLAVIZQ instrucciones LLAVDER RELSE LLAVIZQ instrucciones LLAVDER
@@ -137,6 +141,7 @@ operadores
     | O_POR      { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.MULTIPLICACION); }
 	| O_DIVIDIDO { $$ = instruccionesAPI.nuevoOperador(TIPO_OPERACION.DIVISION); }
 ;
+
 
 expresion_numerica
 	: MENOS expresion_numerica %prec UMENOS				{ $$ = instruccionesAPI.nuevoOperacionUnaria($2, TIPO_OPERACION.NEGATIVO); }
